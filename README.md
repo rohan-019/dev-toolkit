@@ -180,6 +180,46 @@ git checkout -b my-awesome-tool
 Thanks goes to these wonderful people:
 
 <!-- CONTRIBUTORS-START -->
+## Contributors ✨
+
+Thanks goes to these wonderful people:
+
+<table><tr>
+
+  <td align="center">
+    <a href="https://github.com/heysaiyad">
+      <img src="https://avatars.githubusercontent.com/u/101666661?v=4" width="100px;" alt="heysaiyad"/>
+      <br />
+      <sub><b>heysaiyad</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
+    <a href="https://github.com/saiyadali7970">
+      <img src="https://avatars.githubusercontent.com/u/172345084?v=4" width="100px;" alt="saiyadali7970"/>
+      <br />
+      <sub><b>saiyadali7970</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
+    <a href="https://github.com/muhammadrafayasif">
+      <img src="https://avatars.githubusercontent.com/u/26499941?v=4" width="100px;" alt="muhammadrafayasif"/>
+      <br />
+      <sub><b>muhammadrafayasif</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
+    <a href="https://github.com/mangopep">
+      <img src="https://avatars.githubusercontent.com/u/226402269?v=4" width="100px;" alt="mangopep"/>
+      <br />
+      <sub><b>mangopep</b></sub>
+    </a>
+    <br />💻
+  </td>
+</tr></table>
+
 <!-- CONTRIBUTORS-END -->
 
 *Want to see your avatar here? [Contribute now!](CONTRIBUTING.md)*
