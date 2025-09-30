@@ -175,7 +175,12 @@ git checkout -b my-awesome-tool
 
 ### 🌟 Amazing People Who Made This Possible
 
-[![Contributors](https://contrib.rocks/image?repo=heysaiyad/dev-toolkit)](https://github.com/heysaiyad/dev-toolkit/graphs/contributors)
+## Contributors ✨
+
+Thanks goes to these wonderful people:
+
+<!-- CONTRIBUTORS-START -->
+<!-- CONTRIBUTORS-END -->
 
 *Want to see your avatar here? [Contribute now!](CONTRIBUTING.md)*
 
