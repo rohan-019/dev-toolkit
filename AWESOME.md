@@ -11,7 +11,6 @@ A curated list of amazing resources, tools, and contributions for DevToolkit!
 - **JSON Formatter** - Format and validate JSON data
 - **Color Picker** - Advanced color selection tool
 - **Password Generator** - Secure password generation
-- **Base64 Encoder** - Encode/decode Base64 strings
 - **RegEx Tester** - Test regular expressions
 
 ## 🌟 Community Highlights
