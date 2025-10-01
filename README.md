@@ -203,6 +203,14 @@ Thanks goes to these wonderful people:
     <br />💻
   </td>
   <td align="center">
+    <a href="https://github.com/paresh0805">
+      <img src="https://avatars.githubusercontent.com/u/192526004?v=4" width="100px;" alt="paresh0805"/>
+      <br />
+      <sub><b>paresh0805</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
     <a href="https://github.com/muhammadrafayasif">
       <img src="https://avatars.githubusercontent.com/u/26499941?v=4" width="100px;" alt="muhammadrafayasif"/>
       <br />
@@ -211,10 +219,36 @@ Thanks goes to these wonderful people:
     <br />💻
   </td>
   <td align="center">
+    <a href="https://github.com/nikeshadhikari9">
+      <img src="https://avatars.githubusercontent.com/u/133838660?v=4" width="100px;" alt="nikeshadhikari9"/>
+      <br />
+      <sub><b>nikeshadhikari9</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
     <a href="https://github.com/mangopep">
       <img src="https://avatars.githubusercontent.com/u/226402269?v=4" width="100px;" alt="mangopep"/>
       <br />
       <sub><b>mangopep</b></sub>
+    </a>
+    <br />💻
+  </td>
+</tr><tr>
+
+  <td align="center">
+    <a href="https://github.com/Athting">
+      <img src="https://avatars.githubusercontent.com/u/149139084?v=4" width="100px;" alt="Athting"/>
+      <br />
+      <sub><b>Athting</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
+    <a href="https://github.com/apps/github-actions">
+      <img src="https://avatars.githubusercontent.com/in/15368?v=4" width="100px;" alt="github-actions[bot]"/>
+      <br />
+      <sub><b>github-actions[bot]</b></sub>
     </a>
     <br />💻
   </td>
