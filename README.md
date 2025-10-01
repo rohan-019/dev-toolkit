@@ -27,7 +27,8 @@
 
 ## 🌟 What is DevToolkit?
 
-**DevToolkit** is a stunning collection of **powerful web-based developer tools** designed to boost your productivity! Built with modern web technologies and featuring a beautiful dark theme, it's the perfect project for **Hacktoberfest 2025** contributors.
+**DevToolkit** is a sleek collection of handy **web-based developer tools** crafted to supercharge your productivity. Built with modern technologies and a stylish dark theme, it’s an ideal project for **Hacktoberfest 2025** contributors.
+
 
 ### ✨ Why DevToolkit?
 
