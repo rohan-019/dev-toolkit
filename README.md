@@ -51,7 +51,7 @@
 | 🔧 **JSON Formatter** | Format and validate JSON data | 🚧 Coming Soon | Code |
 | 🎨 **Color Picker** | Advanced color selection tool | 🚧 Coming Soon | Utility |
 | 🔐 **Password Generator** | Secure password generation | 🚧 Coming Soon | Security |
-| 📐 **Base64 Encoder** | Encode/decode Base64 strings | 🚧 Coming Soon | Converter |
+| 📐 **Base64 Encoder** | Encode/decode Base64 strings | ✅ Live | Converter |
 | 🔍 **RegEx Tester** | Test regular expressions | 🚧 Coming Soon | Code |
 
 </div>
