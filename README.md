@@ -232,13 +232,13 @@ If you found this project helpful, please consider:
 
 ### 🛣️ Roadmap
 
-- [ ] 🔧 Add 10+ essential developer tools
-- [ ] 🎨 Dark/Light theme toggle
-- [ ] 📱 Progressive Web App (PWA) support
-- [ ] 🌐 Multi-language support
-- [ ] 🔍 Tool search and filtering
-- [ ] 📊 Usage analytics dashboard
-- [ ] 🎮 Gamification for contributors
+- [x] 🔧 Add 10+ essential developer tools  
+- [ ] 🎨 Dark/Light theme toggle  
+- [x] 📱 Progressive Web App (PWA) support  
+- [ ] 🌐 Multi-language support  
+- [x] 🔍 Tool search and filtering  
+- [ ] 📊 Usage analytics dashboard  
+- [ ] 🎮 Gamification for contributors  
 
 *Have an idea? [Let us know!](https://github.com/heysaiyad/dev-toolkit/discussions)*
 
