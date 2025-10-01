@@ -684,6 +684,42 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: titleReveal 0.8s ease-out 0.2s forwards;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+    transition: width 0.6s ease 0.5s;
+}
+
+.section-title.visible::after {
+    width: 60px;
+}
+
+@keyframes titleReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    70% {
+        opacity: 1;
+        transform: translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .section-subtitle {
@@ -694,6 +730,16 @@ body {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: subtitleFade 0.6s ease-out 0.5s forwards;
+}
+
+@keyframes subtitleFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Tools Section */
@@ -716,6 +762,16 @@ body {
     position: relative;
     margin-bottom: 1rem;
     z-index: 10;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSearch 0.6s ease-out 0.3s forwards;
+}
+
+@keyframes fadeInSearch {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .search-input {
@@ -726,23 +782,50 @@ body {
     border-radius: var(--radius-lg);
     color: var(--text-primary);
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     backdrop-filter: blur(20px);
     box-sizing: border-box;
     display: block;
     opacity: 1;
     visibility: visible;
+    position: relative;
+}
+
+.search-input::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-primary);
+    opacity: 0;
+    border-radius: var(--radius-lg);
+    transition: opacity 0.3s ease;
+    z-index: -1;
 }
 
 .search-input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
-    transform: translateY(-2px);
+    box-shadow: 
+        0 0 0 3px rgba(255, 107, 53, 0.1),
+        0 8px 25px rgba(255, 107, 53, 0.2);
+    transform: translateY(-3px) scale(1.02);
+    background: rgba(26, 26, 46, 0.9);
+}
+
+.search-input:focus::before {
+    opacity: 0.1;
 }
 
 .search-input::placeholder {
     color: var(--text-muted);
+    transition: color 0.3s ease;
+}
+
+.search-input:focus::placeholder {
+    color: transparent;
 }
 
 .search-icon {
@@ -752,13 +835,14 @@ body {
     transform: translateY(-50%);
     color: var(--primary-color);
     font-size: 1.1rem;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 5;
     pointer-events: none;
 }
 
 .search-input:focus + .search-icon {
     color: var(--primary-color);
+    transform: translateY(-50%) scale(1.1) rotate(5deg);
 }
 
 .search-suggestions {
@@ -857,16 +941,60 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-md);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInFilter 0.5s ease-out forwards;
+}
+
+.filter-btn:nth-child(1) { animation-delay: 0.1s; }
+.filter-btn:nth-child(2) { animation-delay: 0.2s; }
+.filter-btn:nth-child(3) { animation-delay: 0.3s; }
+.filter-btn:nth-child(4) { animation-delay: 0.4s; }
+.filter-btn:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes slideInFilter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.filter-btn:hover::before,
+.filter-btn.active::before {
+    left: 0;
 }
 
 .filter-btn:hover,
 .filter-btn.active {
-    background: var(--primary-color);
     color: white;
     border-color: var(--primary-color);
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+}
+
+.filter-btn i {
+    transition: transform 0.3s ease;
+}
+
+.filter-btn:hover i,
+.filter-btn.active i {
+    transform: scale(1.2) rotate(5deg);
 }
 
 .tools-grid {
@@ -946,12 +1074,38 @@ body {
     padding: 2rem;
     text-decoration: none;
     color: inherit;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Staggered animation delay for each tool card */
+.tool-card:nth-child(1) { animation-delay: 0.1s; }
+.tool-card:nth-child(2) { animation-delay: 0.2s; }
+.tool-card:nth-child(3) { animation-delay: 0.3s; }
+.tool-card:nth-child(4) { animation-delay: 0.4s; }
+.tool-card:nth-child(5) { animation-delay: 0.5s; }
+.tool-card:nth-child(6) { animation-delay: 0.6s; }
+.tool-card:nth-child(7) { animation-delay: 0.7s; }
+.tool-card:nth-child(8) { animation-delay: 0.8s; }
+.tool-card:nth-child(9) { animation-delay: 0.9s; }
+.tool-card:nth-child(n+10) { animation-delay: 1s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .tool-card::before {
@@ -963,17 +1117,55 @@ body {
     height: 2px;
     background: var(--gradient-primary);
     transform: scaleX(0);
-    transition: transform 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-origin: left;
 }
 
 .tool-card:hover::before {
     transform: scaleX(1);
 }
 
+/* Enhanced glow effect on hover */
+.tool-card::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-lg);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    filter: blur(10px);
+}
+
+.tool-card:hover::after {
+    opacity: 0.3;
+}
+
 .tool-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-xl);
-    border-color: var(--primary-color);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 107, 53, 0.3);
+    border-color: rgba(255, 107, 53, 0.5);
+    background: rgba(26, 26, 46, 0.9);
+}
+
+/* Subtle pulse animation for featured cards */
+.tool-card[data-featured="true"] {
+    animation: fadeInUp 0.6s ease-out forwards, pulse 3s ease-in-out infinite 2s;
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.4);
+    }
+    50% { 
+        box-shadow: 0 0 0 10px rgba(255, 107, 53, 0);
+    }
 }
 
 .tool-icon {
@@ -986,15 +1178,66 @@ body {
     justify-content: center;
     font-size: 1.5rem;
     color: white;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+.tool-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
 }
 
 .tool-card:hover .tool-icon {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+}
+
+.tool-card:hover .tool-icon::before {
+    width: 100%;
+    height: 100%;
+}
+
+/* Icon bounce animation on load */
+.tool-icon {
+    animation: iconBounce 0.8s ease-out 0.5s both;
+}
+
+@keyframes iconBounce {
+    0% {
+        transform: scale(0.3) rotate(-10deg);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.1) rotate(5deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
 }
 
 .tool-content {
     flex: 1;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInContent 0.6s ease-out 0.7s forwards;
+}
+
+@keyframes slideInContent {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .tool-title {
@@ -1002,18 +1245,39 @@ body {
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--text-primary);
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.tool-card:hover .tool-title {
+    color: var(--primary-color);
 }
 
 .tool-description {
     color: var(--text-secondary);
     margin-bottom: 1rem;
     line-height: 1.6;
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+.tool-card:hover .tool-description {
+    color: var(--text-primary);
+    transform: translateY(-2px);
 }
 
 .tool-tags {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeInTags 0.6s ease-out 0.9s forwards;
+}
+
+@keyframes fadeInTags {
+    to {
+        opacity: 1;
+    }
 }
 
 .tag {
@@ -1024,17 +1288,82 @@ body {
     font-size: 0.8rem;
     font-weight: 500;
     border: 1px solid rgba(255, 107, 53, 0.2);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: scale(1);
+    position: relative;
+    overflow: hidden;
 }
+
+.tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 107, 53, 0.2);
+    transition: left 0.3s ease;
+}
+
+.tool-card:hover .tag {
+    transform: scale(1.05);
+    background: rgba(255, 107, 53, 0.2);
+    border-color: var(--primary-color);
+}
+
+.tool-card:hover .tag::before {
+    left: 100%;
+}
+
+/* Individual tag animation delays */
+.tag:nth-child(1) { animation-delay: 0.9s; }
+.tag:nth-child(2) { animation-delay: 1.0s; }
+.tag:nth-child(3) { animation-delay: 1.1s; }
+.tag:nth-child(4) { animation-delay: 1.2s; }
 
 .tool-arrow {
     align-self: flex-end;
     color: var(--text-muted);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-size: 1.1rem;
+    opacity: 0.7;
+    position: relative;
+}
+
+.tool-arrow::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+    transform: translateY(-50%);
 }
 
 .tool-card:hover .tool-arrow {
     color: var(--primary-color);
-    transform: translateX(5px);
+    transform: translateX(8px) scale(1.2);
+    opacity: 1;
+}
+
+.tool-card:hover .tool-arrow::after {
+    width: 15px;
+}
+
+/* Bouncing arrow animation */
+.tool-card:hover .tool-arrow {
+    animation: arrowBounce 0.6s ease-in-out;
+}
+
+@keyframes arrowBounce {
+    0%, 100% { 
+        transform: translateX(8px) scale(1.2);
+    }
+    50% { 
+        transform: translateX(12px) scale(1.3);
+    }
 }
 
 .add-tool-card {
@@ -1043,11 +1372,56 @@ body {
     text-align: center;
     justify-content: center;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+    transition: left 0.8s ease;
 }
 
 .add-tool-card:hover {
     border-color: var(--primary-color);
     background: rgba(255, 107, 53, 0.1);
+    transform: translateY(-12px) scale(1.02);
+    animation: wiggle 0.5s ease-in-out;
+}
+
+.add-tool-card:hover::before {
+    left: 100%;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: translateY(-12px) scale(1.02) rotate(0deg); }
+    25% { transform: translateY(-12px) scale(1.02) rotate(1deg); }
+    75% { transform: translateY(-12px) scale(1.02) rotate(-1deg); }
+}
+
+.add-tool-card .tool-icon {
+    background: transparent;
+    border: 2px dashed var(--primary-color);
+    color: var(--primary-color);
+    animation: none;
+}
+
+.add-tool-card:hover .tool-icon {
+    background: var(--primary-color);
+    color: white;
+    border-style: solid;
+    animation: rotatePulse 0.6s ease-in-out;
+}
+
+@keyframes rotatePulse {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+    100% { transform: scale(1.15) rotate(360deg); }
 }
 
 /* Contribute Section */
@@ -1764,17 +2138,158 @@ body {
 
 /* Enhanced Loading States */
 .loading-skeleton {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.1) 25%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        rgba(255, 255, 255, 0.1) 75%);
     background-size: 200% 100%;
-    animation: loading 1.5s infinite;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-md);
 }
 
-@keyframes loading {
+@keyframes shimmer {
     0% {
         background-position: 200% 0;
     }
     100% {
         background-position: -200% 0;
+    }
+}
+
+/* Micro-interactions for all interactive elements */
+.btn,
+.filter-btn,
+.tool-card,
+.sidebar-toggle,
+.mobile-menu-toggle {
+    will-change: transform;
+}
+
+/* Enhanced button micro-interactions */
+.btn:active {
+    transform: scale(0.98);
+}
+
+.filter-btn:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+/* Floating animation for special elements */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Subtle pulsing animation for attention */
+@keyframes pulse-subtle {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.02);
+    }
+}
+
+.pulse-subtle {
+    animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* Smooth scaling for interactive elements */
+.scale-on-hover {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scale-on-hover:hover {
+    transform: scale(1.05);
+}
+
+/* Gentle glow effect for focused elements */
+.glow-focus:focus,
+.glow-focus:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+    animation: gentleGlow 1s ease-out;
+}
+
+@keyframes gentleGlow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(255, 107, 53, 0.1);
+    }
+    100% {
+        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+    }
+}
+
+/* Staggered reveal animation for grid items */
+.staggered-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: revealItem 0.6s ease-out forwards;
+}
+
+.staggered-reveal:nth-child(1) { animation-delay: 0.1s; }
+.staggered-reveal:nth-child(2) { animation-delay: 0.2s; }
+.staggered-reveal:nth-child(3) { animation-delay: 0.3s; }
+.staggered-reveal:nth-child(4) { animation-delay: 0.4s; }
+.staggered-reveal:nth-child(5) { animation-delay: 0.5s; }
+.staggered-reveal:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes revealItem {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Filter button pulse animation */
+@keyframes filterPulse {
+    0% { transform: translateY(-3px) scale(1.05); }
+    50% { transform: translateY(-3px) scale(1.1); }
+    100% { transform: translateY(-3px) scale(1.05); }
+}
+
+/* Enhanced tool card loaded state */
+.tool-card.loaded {
+    animation: none;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .tool-card {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+    
+    .filter-btn,
+    .search-wrapper,
+    .section-title,
+    .section-subtitle {
+        opacity: 1;
+        transform: none;
+        animation: none;
     }
 }
 

@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
   initMobileMenu();
   initSidebar();
   initEnhancedNavigation();
+  initMicroAnimations();
+  initSectionAnimations();
 });
 
 // Typing Effect Animation
@@ -1098,4 +1100,179 @@ function initEnhancedNavigation() {
 
   // Add hints to page
   document.body.appendChild(keyboardHints);
+}
+
+// Micro-animations and Enhanced Interactions
+function initMicroAnimations() {
+  // Add enhanced hover effects to all tool cards
+  const toolCards = document.querySelectorAll(".tool-card");
+
+  toolCards.forEach((card) => {
+    // Add ripple effect on click
+    card.addEventListener("click", function (e) {
+      const ripple = document.createElement("div");
+      const rect = card.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+
+      ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                background: rgba(255, 107, 53, 0.3);
+                border-radius: 50%;
+                transform: scale(0);
+                pointer-events: none;
+                z-index: 10;
+            `;
+
+      card.style.position = "relative";
+      card.appendChild(ripple);
+
+      // Animate ripple
+      ripple.animate(
+        [
+          { transform: "scale(0)", opacity: 1 },
+          { transform: "scale(1)", opacity: 0 },
+        ],
+        {
+          duration: 600,
+          easing: "ease-out",
+        }
+      ).onfinish = () => ripple.remove();
+    });
+
+    // Add magnetic effect on mouse move
+    card.addEventListener("mousemove", function (e) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const deltaX = (x - centerX) / centerX;
+      const deltaY = (y - centerY) / centerY;
+
+      const moveX = deltaX * 5;
+      const moveY = deltaY * 5;
+
+      card.style.transform = `translateY(-12px) scale(1.02) translate(${moveX}px, ${moveY}px)`;
+    });
+
+    card.addEventListener("mouseleave", function () {
+      card.style.transform = "";
+    });
+  });
+
+  // Enhanced filter button animations
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  filterButtons.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      // Add a quick pulse animation
+      this.style.animation = "none";
+      setTimeout(() => {
+        this.style.animation = "filterPulse 0.3s ease-out";
+      }, 10);
+    });
+  });
+
+  // Add loading shimmer to cards initially
+  setTimeout(() => {
+    toolCards.forEach((card, index) => {
+      if (card.style.animationDelay) {
+        card.addEventListener(
+          "animationend",
+          function () {
+            this.classList.add("loaded");
+          },
+          { once: true }
+        );
+      }
+    });
+  }, 100);
+}
+
+// Section-based scroll animations
+function initSectionAnimations() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+  };
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const section = entry.target;
+
+        // Trigger section title animation
+        const title = section.querySelector(".section-title");
+        if (title && !title.classList.contains("visible")) {
+          title.classList.add("visible");
+        }
+
+        // Stagger tool card animations if they haven't been animated yet
+        const cards = section.querySelectorAll(".tool-card:not(.animated)");
+        cards.forEach((card, index) => {
+          setTimeout(() => {
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.classList.add("animated");
+          }, index * 50);
+        });
+
+        // Animate filter buttons if in tools section
+        if (section.classList.contains("tools-section")) {
+          const filterContainer = section.querySelector(".tools-filter");
+          if (
+            filterContainer &&
+            !filterContainer.classList.contains("animated")
+          ) {
+            filterContainer.classList.add("animated");
+
+            const buttons = filterContainer.querySelectorAll(".filter-btn");
+            buttons.forEach((btn, index) => {
+              setTimeout(() => {
+                btn.style.animationDelay = `${index * 0.1}s`;
+              }, index * 50);
+            });
+          }
+        }
+      }
+    });
+  }, observerOptions);
+
+  // Observe all major sections
+  const sections = document.querySelectorAll(
+    ".tools-section, .contribute-section, .creator-section"
+  );
+  sections.forEach((section) => sectionObserver.observe(section));
+
+  // Add smooth scroll reveal for any element with data-reveal attribute
+  const revealElements = document.querySelectorAll("[data-reveal]");
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          const delay = element.dataset.delay || 0;
+
+          setTimeout(() => {
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
+          }, delay);
+
+          revealObserver.unobserve(element);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  revealElements.forEach((element) => {
+    element.style.opacity = "0";
+    element.style.transform = "translateY(30px)";
+    element.style.transition = "all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+    revealObserver.observe(element);
+  });
 }
