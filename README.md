@@ -175,10 +175,6 @@ git checkout -b my-awesome-tool
 
 ### 🌟 Amazing People Who Made This Possible
 
-## Contributors ✨
-
-Thanks goes to these wonderful people:
-
 <!-- CONTRIBUTORS-START -->
 ## Contributors ✨
 
