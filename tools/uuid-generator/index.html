@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UUID Generator - DevToolkit</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <a href="../../index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Back to Tools
+    </a>
+
+    <div class="tool-container">
+        <!-- Header -->
+        <div class="tool-header">
+            <h1 class="tool-title">UUID Generator</h1>
+            <p class="tool-subtitle">
+                Generate Universally Unique Identifiers (UUIDs) instantly. Perfect for database keys, session IDs, and unique identifiers in your applications.
+            </p>
+        </div>
+
+        <!-- UUID Generation Section -->
+        <div class="uuid-section">
+            <button id="generate-btn" class="generate-btn">
+                <i class="fas fa-magic"></i>
+                Generate UUID
+            </button>
+            <div id="uuid-display" class="uuid-display uuid-placeholder">
+                Click the button above to generate a new UUID
+            </div>
+            <button id="copy-btn" class="copy-btn" disabled>
+                <i class="fas fa-copy"></i>
+                Copy to Clipboard
+            </button>
+        </div>
+
+        <!-- UUID Information -->
+        <div class="uuid-info">
+            <h3>
+                <i class="fas fa-info-circle"></i>
+                About UUIDs
+            </h3>
+            <p>
+                A UUID (Universally Unique Identifier) is a 128-bit number used to uniquely identify information in computer systems.
+                UUIDs are designed to be unique across space and time, making them ideal for distributed systems and databases.
+            </p>
+            <p>
+                This tool generates UUIDs using the RFC 4122 version 4 standard, which uses random numbers for maximum uniqueness.
+                Each generated UUID has an extremely low probability of collision with any other UUID.
+            </p>
+        </div>
+
+        <!-- Feature Highlight -->
+        <div class="feature-highlight">
+            <h4>🔒 Secure & Unique</h4>
+            <p>Generate cryptographically secure UUIDs with guaranteed uniqueness for your development needs.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -27,7 +27,8 @@
 
 ## 🌟 What is DevToolkit?
 
-**DevToolkit** is a stunning collection of **powerful web-based developer tools** designed to boost your productivity! Built with modern web technologies and featuring a beautiful dark theme, it's the perfect project for **Hacktoberfest 2025** contributors.
+**DevToolkit** is a sleek collection of handy **web-based developer tools** crafted to supercharge your productivity. Built with modern technologies and a stylish dark theme, it’s an ideal project for **Hacktoberfest 2025** contributors.
+
 
 ### ✨ Why DevToolkit?
 
@@ -50,7 +51,7 @@
 | 🔧 **JSON Formatter** | Format and validate JSON data | 🚧 Coming Soon | Code |
 | 🎨 **Color Picker** | Advanced color selection tool | 🚧 Coming Soon | Utility |
 | 🔐 **Password Generator** | Secure password generation | 🚧 Coming Soon | Security |
-| 📐 **Base64 Encoder** | Encode/decode Base64 strings | 🚧 Coming Soon | Converter |
+| 📐 **Base64 Encoder** | Encode/decode Base64 strings | ✅ Live | Converter |
 | 🔍 **RegEx Tester** | Test regular expressions | 🚧 Coming Soon | Code |
 
 </div>
@@ -175,7 +176,82 @@ git checkout -b my-awesome-tool
 
 ### 🌟 Amazing People Who Made This Possible
 
-[![Contributors](https://contrib.rocks/image?repo=heysaiyad/dev-toolkit)](https://github.com/heysaiyad/dev-toolkit/graphs/contributors)
+<!-- CONTRIBUTORS-START -->
+## Contributors ✨
+
+Thanks goes to these wonderful people:
+
+<table><tr>
+
+  <td align="center">
+    <a href="https://github.com/heysaiyad">
+      <img src="https://avatars.githubusercontent.com/u/101666661?v=4" width="100px;" alt="heysaiyad"/>
+      <br />
+      <sub><b>heysaiyad</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
+    <a href="https://github.com/saiyadali7970">
+      <img src="https://avatars.githubusercontent.com/u/172345084?v=4" width="100px;" alt="saiyadali7970"/>
+      <br />
+      <sub><b>saiyadali7970</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
+    <a href="https://github.com/paresh0805">
+      <img src="https://avatars.githubusercontent.com/u/192526004?v=4" width="100px;" alt="paresh0805"/>
+      <br />
+      <sub><b>paresh0805</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
+    <a href="https://github.com/muhammadrafayasif">
+      <img src="https://avatars.githubusercontent.com/u/26499941?v=4" width="100px;" alt="muhammadrafayasif"/>
+      <br />
+      <sub><b>muhammadrafayasif</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
+    <a href="https://github.com/nikeshadhikari9">
+      <img src="https://avatars.githubusercontent.com/u/133838660?v=4" width="100px;" alt="nikeshadhikari9"/>
+      <br />
+      <sub><b>nikeshadhikari9</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
+    <a href="https://github.com/mangopep">
+      <img src="https://avatars.githubusercontent.com/u/226402269?v=4" width="100px;" alt="mangopep"/>
+      <br />
+      <sub><b>mangopep</b></sub>
+    </a>
+    <br />💻
+  </td>
+</tr><tr>
+
+  <td align="center">
+    <a href="https://github.com/Athting">
+      <img src="https://avatars.githubusercontent.com/u/149139084?v=4" width="100px;" alt="Athting"/>
+      <br />
+      <sub><b>Athting</b></sub>
+    </a>
+    <br />💻
+  </td>
+  <td align="center">
+    <a href="https://github.com/apps/github-actions">
+      <img src="https://avatars.githubusercontent.com/in/15368?v=4" width="100px;" alt="github-actions[bot]"/>
+      <br />
+      <sub><b>github-actions[bot]</b></sub>
+    </a>
+    <br />💻
+  </td>
+</tr></table>
+
+<!-- CONTRIBUTORS-END -->
 
 *Want to see your avatar here? [Contribute now!](CONTRIBUTING.md)*
 
@@ -231,13 +307,13 @@ If you found this project helpful, please consider:
 
 ### 🛣️ Roadmap
 
-- [ ] 🔧 Add 10+ essential developer tools
-- [ ] 🎨 Dark/Light theme toggle
-- [ ] 📱 Progressive Web App (PWA) support
-- [ ] 🌐 Multi-language support
-- [ ] 🔍 Tool search and filtering
-- [ ] 📊 Usage analytics dashboard
-- [ ] 🎮 Gamification for contributors
+- [x] 🔧 Add 10+ essential developer tools  
+- [ ] 🎨 Dark/Light theme toggle  
+- [x] 📱 Progressive Web App (PWA) support  
+- [ ] 🌐 Multi-language support  
+- [x] 🔍 Tool search and filtering  
+- [ ] 📊 Usage analytics dashboard  
+- [ ] 🎮 Gamification for contributors  
 
 *Have an idea? [Let us know!](https://github.com/heysaiyad/dev-toolkit/discussions)*
 

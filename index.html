@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,10 @@
 
     <!-- SEO Meta Tags -->
     <meta name="description"
+       
         content="DevToolkit - A beautiful collection of free web-based developer tools. Word counter, JSON formatter, color picker, and more. Perfect for Hacktoberfest 2025 contributions!">
     <meta name="keywords"
+       
         content="developer tools, web tools, JSON formatter, word counter, color picker, hacktoberfest, open source, free tools, programming utilities">
     <meta name="author" content="Md Saiyad Ali">
     <meta name="robots" content="index, follow">
@@ -21,6 +24,7 @@
     <meta property="og:url" content="https://heysaiyad.github.io/dev-toolkit/">
     <meta property="og:title" content="DevToolkit - Free Developer Tools Collection">
     <meta property="og:description"
+       
         content="Beautiful collection of free web-based developer tools. Perfect for Hacktoberfest 2025 contributions!">
     <meta property="og:image" content="https://heysaiyad.github.io/dev-toolkit/poster.png">
     <meta property="og:site_name" content="DevToolkit">
@@ -30,6 +34,7 @@
     <meta property="twitter:url" content="https://heysaiyad.github.io/dev-toolkit/">
     <meta property="twitter:title" content="DevToolkit - Free Developer Tools Collection">
     <meta property="twitter:description"
+       
         content="Beautiful collection of free web-based developer tools. Perfect for Hacktoberfest 2025 contributions!">
     <meta property="twitter:image" content="https://heysaiyad.github.io/dev-toolkit/poster.png">
 
@@ -44,6 +49,7 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon"
+       
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
 
     <!-- PWA Manifest -->
@@ -75,6 +81,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+       
         rel="stylesheet">
 </head>
 
@@ -91,6 +98,7 @@
     </div>
 
     <!-- Navigation -->
+        <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -105,8 +113,138 @@
                     <i class="fab fa-github"></i>
                 </a>
             </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <button class="sidebar-toggle" aria-label="Toggle tools sidebar">
+                <i class="fas fa-th-list"></i>
+            </button>
         </div>
     </nav>
+
+    <!-- Fixed Sidebar for Tools Navigation -->
+    <aside class="tools-sidebar" id="tools-sidebar">
+        <div class="sidebar-header">
+            <h3>Quick Tools</h3>
+            <button class="sidebar-close" aria-label="Close sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-search">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="sidebar-search-input" placeholder="Search tools..." id="sidebar-search">
+            </div>
+        </div>
+
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h4 class="sidebar-category">
+                    <i class="fas fa-star"></i>
+                    Featured
+                </h4>
+                <div class="sidebar-tools">
+                    <a href="tools/word-counter/index.html" class="sidebar-tool-link" data-category="text">
+                        <i class="fas fa-font"></i>
+                        <span>Word Counter</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-category">
+                    <i class="fas fa-font"></i>
+                    Text Tools
+                </h4>
+                <div class="sidebar-tools">
+                    <a href="tools/word-counter/index.html" class="sidebar-tool-link" data-category="text">
+                        <i class="fas fa-font"></i>
+                        <span>Word Counter</span>
+                    </a>
+                    <a href="tools/lorem-ipsum-generator/index.html" class="sidebar-tool-link" data-category="text">
+                        <i class="fas fa-align-justify"></i>
+                        <span>Lorem Ipsum Generator</span>
+                    </a>
+                    <a href="tools/string-reverser/index.html" class="sidebar-tool-link" data-category="text">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>String Reverser</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-category">
+                    <i class="fas fa-code"></i>
+                    Code Tools
+                </h4>
+                <div class="sidebar-tools">
+                    <a href="tools/markdown-previewer/index.html" class="sidebar-tool-link" data-category="code">
+                        <i class="fas fa-markdown"></i>
+                        <span>Markdown Previewer</span>
+                    </a>
+                    <div class="sidebar-tool-link disabled" data-category="code">
+                        <i class="fas fa-code"></i>
+                        <span>JSON Formatter</span>
+                        <small>Coming Soon</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-category">
+                    <i class="fas fa-cog"></i>
+                    Utilities
+                </h4>
+                <div class="sidebar-tools">
+                    <a href="tools/password-generator/index.html" class="sidebar-tool-link" data-category="utility">
+                        <i class="fas fa-key"></i>
+                        <span>Password Generator</span>
+                    </a>
+                    <a href="tools/base64-encoder/index.html" class="sidebar-tool-link" data-category="utility">
+                        <i class="fas fa-lock"></i>
+                        <span>Base64 Encoder</span>
+                    </a>
+                    <a href="tools/url-encoder-decoder/index.html" class="sidebar-tool-link" data-category="utility">
+                        <i class="fas fa-link"></i>
+                        <span>URL Encoder</span>
+                    </a>
+                    <a href="tools/percentage-calculator/index.html" class="sidebar-tool-link" data-category="utility">
+                        <i class="fas fa-calculator"></i>
+                        <span>Percentage Calculator</span>
+                    </a>
+                    <a href="tools/uuid-generator/index.html" class="sidebar-tool-link" data-category="utility">
+                        <i class="fas fa-fingerprint"></i>
+                        <span>UUID Generator</span>
+                    </a>
+                    <a href="tools/unix-timestamp-converter/index.html" class="sidebar-tool-link" data-category="utility">
+                        <i class="fas fa-clock"></i>
+                        <span>Unix Timestamp</span>
+                    </a>
+                    <div class="sidebar-tool-link disabled" data-category="utility">
+                        <i class="fas fa-palette"></i>
+                        <span>Color Picker</span>
+                        <small>Coming Soon</small>
+                    </div>
+                    <div class="sidebar-tool-link disabled" data-category="utility">
+                        <i class="fas fa-qrcode"></i>
+                        <span>QR Code Generator</span>
+                        <small>Coming Soon</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <a href="#contribute" class="sidebar-contribute-btn">
+                <i class="fas fa-plus"></i>
+                Add Your Tool
+            </a>
+        </div>
+    </aside>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -128,7 +266,7 @@
             </p>
             <div class="hero-stats">
                 <div class="stat">
-                    <span class="stat-number" data-target="7">0</span>
+                    <span class="stat-number" data-target="11">0</span>
                     <span class="stat-label">Tools Available</span>
                 </div>
                 <div class="stat">
@@ -166,11 +304,12 @@
                 <div class="search-wrapper">
                     <i class="fas fa-search search-icon"></i>
                     <input type="text" class="search-input"
+                       
                         placeholder="Search tools... (try 'word', 'text', or 'counter')" id="toolSearch">
                     <div class="search-suggestions" id="searchSuggestions"></div>
                 </div>
                 <div class="search-stats" id="searchStats">
-                    <span id="resultCount">1</span> tools found
+                    <span id="resultCount">11</span> tools found
                 </div>
             </div>
 
@@ -194,7 +333,7 @@
             </div>
 
             <div id="tools-grid" class="tools-grid">
-                <!-- Featured Tool - Word Counter -->
+                <!-- Word Counter -->
                 <a href="tools/word-counter/index.html" class="tool-card" data-category="text" data-featured="true">
                     <div class="tool-icon">
                         <i class="fas fa-font"></i>
@@ -214,6 +353,26 @@
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
+
+                <!-- Line Sorter & Unique Extractor -->
+                <a href="tools/line-sorter-unique/index.html" class="tool-card" data-category="text">
+                    <div class="tool-icon">
+                        <i class="fas fa-sort-alpha-down"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Line Sorter & Unique</h3>
+                        <p class="tool-description">Sort text lines alphabetically and remove duplicates. Perfect for cleaning up lists, organizing data, and removing redundant lines from text files.</p>
+                        <div class="tool-tags">
+                            <span class="tag">Text</span>
+                            <span class="tag">Sort</span>
+                            <span class="tag">Filter</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
                 <!-- Lorem Ipsum Generator -->
                 <a href="tools/lorem-ipsum-generator/index.html" class="tool-card" data-category="text">
                     <div class="tool-icon">
@@ -222,11 +381,31 @@
                     <div class="tool-content">
                         <h3 class="tool-title">Lorem Ipsum Generator</h3>
                         <p class="tool-description">Generate customizable placeholder text by words or paragraphs for
-                            your design and
-                            development projects. Perfect for mockups and prototyping.</p>
+                           
+                            your design and development projects. Perfect for mockups and prototyping.</p>
                         <div class="tool-tags">
                             <span class="tag">Text</span>
                             <span class="tag">Generator</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- Markdown Previewer -->
+                <a href="tools/markdown-previewer/index.html" class="tool-card" data-category="code">
+                    <div class="tool-icon">
+                        <i class="fas fa-markdown"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Markdown Previewer</h3>
+                        <p class="tool-description">Write and preview Markdown in real-time with split-view editor.
+                            Export to HTML, MD, or plain text.</p>
+                        <div class="tool-tags">
+                            <span class="tag">Markdown</span>
+                            <span class="tag">Preview</span>
+                            <span class="tag">Editor</span>
                         </div>
                     </div>
                     <div class="tool-arrow">
@@ -242,6 +421,7 @@
                     <div class="tool-content">
                         <h3 class="tool-title">JSON Formatter</h3>
                         <p class="tool-description">Format, validate and beautify JSON data with syntax highlighting and
+                           
                             error detection.</p>
                         <div class="tool-tags">
                             <span class="tag">JSON</span>
@@ -253,6 +433,26 @@
                     </div>
                 </div>
 
+                <!-- Timer & Stopwatch -->
+                <a href="tools/timer-stopwatch/index.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Timer & Stopwatch</h3>
+                        <p class="tool-description">Countdown timer and stopwatch with lap tracking, audio alerts, and
+                            keyboard shortcuts.</p>
+                        <div class="tool-tags">
+                            <span class="tag">Timer</span>
+                            <span class="tag">Stopwatch</span>
+                            <span class="tag">Productivity</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
                 <!-- Color Picker -->
                 <div class="tool-card" data-category="utility">
                     <div class="tool-icon">
@@ -261,6 +461,7 @@
                     <div class="tool-content">
                         <h3 class="tool-title">Color Picker</h3>
                         <p class="tool-description">Generate color palettes, convert between formats, and find perfect
+                           
                             color combinations.</p>
                         <div class="tool-tags">
                             <span class="tag">Color</span>
@@ -273,22 +474,63 @@
                 </div>
 
                 <!-- Base64 Encoder/Decoder -->
-                <div class="tool-card" data-category="utility">
+                <a href="tools/base64-encoder/index.html" class="tool-card" data-category="utility">
                     <div class="tool-icon">
                         <i class="fas fa-lock"></i>
                     </div>
                     <div class="tool-content">
-                        <h3 class="tool-title">Base64 Encoder</h3>
-                        <p class="tool-description">Encode and decode Base64 strings quickly and securely.</p>
+                        <h3 class="tool-title">Base64 Encoder/Decoder</h3>
+                        <p class="tool-description">Encode text to Base64 or decode Base64 strings. Support for text and
+                            file conversion.</p>
                         <div class="tool-tags">
+                            <span class="tag">Base64</span>
                             <span class="tag">Encode</span>
-                            <span class="tag">Security</span>
+                            <span class="tag">Decode</span>
                         </div>
                     </div>
                     <div class="tool-arrow">
                         <i class="fas fa-arrow-right"></i>
                     </div>
-                </div>
+                </a>
+
+                <!-- Image to Base64 Converter -->
+                <a href="tools/image-base64-converter/index.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Image to Base64 Converter</h3>
+                        <p class="tool-description">Convert images to Base64 encoded strings. Perfect for embedding images directly in HTML, CSS, or JSON files.</p>
+                        <div class="tool-tags">
+                            <span class="tag">Image</span>
+                            <span class="tag">Base64</span>
+                            <span class="tag">Converter</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- URL Encoder/Decoder -->
+                <a href="tools/url-encoder-decoder/index.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">URL Encoder/Decoder</h3>
+                        <p class="tool-description">Encode or decode URLs to ensure proper formatting. Convert special
+                            characters and spaces for safe URL transmission.</p>
+                        <div class="tool-tags">
+                            <span class="tag">URL</span>
+                            <span class="tag">Encode</span>
+                            <span class="tag">Decode</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
 
                 <!-- URL Shortener -->
                 <div class="tool-card" data-category="utility" data-wide="true">
@@ -298,6 +540,7 @@
                     <div class="tool-content">
                         <h3 class="tool-title">URL Shortener</h3>
                         <p class="tool-description">Create short, manageable URLs with custom aliases and click tracking
+                           
                             analytics for better link management.</p>
                         <div class="tool-tags">
                             <span class="tag">URL</span>
@@ -311,13 +554,14 @@
                 </div>
 
                 <!-- Password Generator -->
-                <div class="tool-card" data-category="utility">
+                <a href="tools/password-generator/index.html" class="tool-card" data-category="utility">
                     <div class="tool-icon">
                         <i class="fas fa-key"></i>
                     </div>
                     <div class="tool-content">
                         <h3 class="tool-title">Password Generator</h3>
                         <p class="tool-description">Generate secure passwords with customizable length and character
+                           
                             sets.</p>
                         <div class="tool-tags">
                             <span class="tag">Security</span>
@@ -327,7 +571,27 @@
                     <div class="tool-arrow">
                         <i class="fas fa-arrow-right"></i>
                     </div>
-                </div>
+                </a>
+
+                <!-- Unix Timestamp Converter -->
+                <a href="tools/unix-timestamp-converter/index.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Unix Timestamp Converter</h3>
+                        <p class="tool-description">A simple tool to convert human-readable dates into Unix timestamps
+                            and convert Unix timestamps back into readable date/time.</p>
+                        <div class="tool-tags">
+                            <span class="tag">Time</span>
+                            <span class="tag">Date</span>
+                            <span class="tag">Unix</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
 
                 <!-- QR Code Generator -->
                 <div class="tool-card" data-category="utility">
@@ -337,6 +601,7 @@
                     <div class="tool-content">
                         <h3 class="tool-title">QR Code Generator</h3>
                         <p class="tool-description">Create QR codes for URLs, text, WiFi, and more with customizable
+                           
                             styling.</p>
                         <div class="tool-tags">
                             <span class="tag">QR Code</span>
@@ -363,6 +628,98 @@
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
+                <!-- UUID Generator -->
+                <a href="tools/uuid-generator/index.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">UUID Generator</h3>
+                        <p class="tool-description">Generate Universally Unique Identifiers (UUIDs) instantly for
+                            database keys, session IDs, and unique identifiers.</p>
+                        <div class="tool-tags">
+                            <span class="tag">UUID</span>
+                            <span class="tag">Generator</span>
+                            <span class="tag">Security</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+                <!-- Percentage Calculator -->
+                <a href="tools/percentage-calculator/index.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Percentage Calculator</h3>
+                        <p class="tool-description">Easily calculate percentages with this intuitive calculator. Find out what is X% of Y in seconds.</p>
+                        <div class="tool-tags">
+                            <span class="tag">Calculator</span>
+                            <span class="tag">Math</span>
+                            <span class="tag">Utility</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- String Reverser -->
+                <a href="tools/string-reverser/index.html" class="tool-card" data-category="text">
+                    <div class="tool-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">String Reverser</h3>
+                        <p class="tool-description">Reverse any text instantly for coding exercises, data transformation, input testing, obfuscation, and playful text effects.</p>
+                        <div class="tool-tags">
+                            <span class="tag">String</span>
+                            <span class="tag">Reverse</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+                <a href="tools/code-beautifier/index.html" class="tool-card" data-category="code">
+                    <div class="tool-icon">
+                        <i class="fas fa-code tool-icon"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Code Beautifier</h3>
+                        <p class="tool-description">Paste messy HTML code and instantly get beautifully formatted code.</p>
+                        <div class="tool-tags">
+                            <span class="tag">Code</span>
+                            <span class="tag">Beautify</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- Even Odd Checker -->
+                <a href="tools/even-odd-checker/index.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Even Odd Checker</h3>
+                        <p class="tool-description">
+                            A simple tool to check whether a number is even or odd. Perfect for quick mathematical verifications.
+                        </p>
+                        <div class="tool-tags">
+                            <span class="tag">Math</span>
+                            <span class="tag">Utility</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
                 <!-- Add Tool Card -->
                 <div class="tool-card add-tool-card" data-category="all">
                     <div class="tool-icon">
@@ -371,6 +728,7 @@
                     <div class="tool-content">
                         <h3 class="tool-title">Add Your Tool</h3>
                         <p class="tool-description">Contribute a new tool and be part of Hacktoberfest 2025! Help us
+                           
                             build the ultimate developer toolkit.</p>
                         <div class="tool-tags">
                             <span class="tag">Contribute</span>
@@ -465,6 +823,7 @@
                                 Connect on LinkedIn
                             </a>
                             <a href="https://github.com/heysaiyad" target="_blank"
+                               
                                 class="btn btn-secondary creator-btn">
                                 <i class="fab fa-github"></i>
                                 Follow on GitHub
@@ -541,7 +900,8 @@
         // Register Service Worker for PWA functionality
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
+                const swUrl = new URL('sw.js', window.location.href);
+                navigator.serviceWorker.register(swUrl.href, { scope: './' })
                     .then(registration => {
                         console.log('🚀 SW registered successfully:', registration.scope);
 
@@ -608,4 +968,6 @@
     </script>
 </body>
 
+
 </html>
+
