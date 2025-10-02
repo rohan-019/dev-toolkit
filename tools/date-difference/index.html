@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Difference Calculator - DevToolkit</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+      <div class="shape shape-5"></div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <a href="../../index.html" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+    Back to Tools
+  </a>
+
+  <div class="tool-container">
+    <!-- Header -->
+    <div class="tool-header">
+      <h1 class="tool-title">Date Difference Calculator</h1>
+      <p class="tool-subtitle">
+        Find the difference between two dates in years, months, and days — including the total number of days.
+      </p>
+    </div>
+
+    <!-- Input Section -->
+    <div class="input-section">
+      <div class="date-inputs">
+        <div class="date-group">
+          <label class="label-text"><i class="fas fa-calendar-alt"></i> Start Date</label>
+          <input type="date" id="start-date">
+        </div>
+        <div class="date-group">
+          <label class="label-text"><i class="fas fa-calendar-check"></i> End Date</label>
+          <input type="date" id="end-date">
+        </div>
+      </div>
+    </div>
+
+    <!-- Calculate Button -->
+    <div class="convert-section">
+      <button class="convert-btn" id="calculate-btn">
+        <i class="fas fa-calculator"></i>
+        Calculate Difference
+      </button>
+    </div>
+
+    <!-- Output Section -->
+    <div class="output-section">
+      <div class="output-label">
+        <i class="fas fa-clock"></i>
+        Result
+      </div>
+      <div id="result-display">Select two dates and click Calculate to see the result.</div>
+      <button class="action-btn" id="copy-btn" disabled>
+        <i class="fas fa-copy"></i>
+        Copy Result
+      </button>
+    </div>
+  </div>
+
+
+</body>
+<script src="./script.js"></script>
+</html>
