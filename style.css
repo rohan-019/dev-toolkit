@@ -563,13 +563,14 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 2rem;
+    padding: 6rem 2rem 2rem 2rem; /* Added top padding for navbar */
     position: relative;
 }
 
 .hero-content {
     max-width: 800px;
     animation: fadeInUp 1s ease-out;
+    margin-top: 2rem; /* Additional space from navbar */
 }
 
 .hero-badge {
@@ -592,9 +593,9 @@ body {
 .github-badges {
     display: flex;
     gap: 0.75rem;
-    margin-bottom: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
+    /* margin-top: 0.5rem; */
 }
 
 .github-badge,
@@ -625,8 +626,53 @@ body {
     opacity: 0.8;
 }
 
+/* Responsive badge layout */
+@media (max-width: 768px) {
+    .hero {
+        padding: 5rem 1rem 2rem 1rem; /* Adjusted for mobile navbar */
+    }
+    
+    .hero-content {
+        margin-top: 1rem;
+    }
+    
+    .hero-badges {
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        margin-top: 0.5rem;
+    }
+    
+    .github-badges {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .github-badge,
+    .contributors-badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/* Large screen optimization */
+@media (min-width: 1200px) {
+    .hero {
+        padding-top: 2.5rem; /* More space on large screens */
+    }
+    
+    .hero-content {
+        margin-top: 3rem;
+    }
+}
+
 .hero-badges {
-    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    margin-top: 1rem; /* Ensure proper spacing from top */
 }
 
 .hero-title {
@@ -1397,7 +1443,7 @@ body {
     }
 
     .tool-card {
-        padding: 1.5rem;
+        padding: 1.5rem 3rem 1.5rem 1.5rem;
         min-height: 180px;
         transform: translateY(30px);
         animation: fadeInUp 0.6s ease-out forwards;
@@ -1437,7 +1483,7 @@ body {
         var(--bg-secondary) 100%);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 2rem;
+    padding: 2rem 4.5rem 2rem 2rem; /* Adjusted padding for arrow */
     text-decoration: none;
     color: inherit;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -1650,6 +1696,10 @@ body {
     opacity: 0;
     transform: translateY(20px);
     animation: slideInContent 0.6s ease-out 0.7s forwards;
+    padding-right: 4rem; /* Add padding to prevent overlap with arrow */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 @keyframes slideInContent {
@@ -1713,6 +1763,8 @@ body {
     opacity: 0;
     animation: fadeInTags 0.6s ease-out 0.9s forwards;
     margin-top: auto;
+    max-width: 100%; /* Prevent overflow */
+    padding-right: 1rem; /* Extra space from arrow */
 }
 
 @keyframes fadeInTags {

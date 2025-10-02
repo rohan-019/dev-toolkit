@@ -10,6 +10,10 @@ window.addEventListener('unhandledrejection', function(e) {
   console.error('Unhandled promise rejection:', e.reason);
 });
 
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
   try {
     // Show loading screen
@@ -178,8 +182,7 @@ function initToolsFilter() {
   const toolCards = document.querySelectorAll(".tool-card:not(.add-tool-card)");
   const resultCount = document.getElementById("resultCount");
   
-  // Debug: Log actual tool count
-  console.log('Filter initialized with', toolCards.length, 'actual tools');
+  // Filter system ready
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -761,9 +764,7 @@ function initAdvancedSearch() {
   // Initialize count
   updateResultCount(toolCards.length);
   
-  // Add console log for debugging
-  console.log('Search initialized with', toolCards.length, 'tools');
-  console.log('Tools database loaded with', toolsDatabase.length, 'entries');
+  // Search system initialized successfully
 }
 
 // Advanced Theme System
@@ -998,12 +999,12 @@ function initPerformanceMonitoring() {
   // Monitor load times
   window.addEventListener("load", function () {
     const loadTime = performance.now();
-    console.log(`🚀 DevToolkit loaded in ${loadTime.toFixed(2)}ms`);
+    // DevToolkit loaded successfully
 
     // Track Core Web Vitals
     if ("web-vital" in window) {
       // This would integrate with web-vitals library if available
-      console.log("📊 Web Vitals monitoring enabled");
+      // Web Vitals monitoring enabled
     }
   });
 
