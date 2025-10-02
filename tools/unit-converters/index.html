@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter - DevToolkit</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="animated-bg">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+      <div class="shape shape-5"></div>
+    </div>
+  </div>
+
+  <a href="../../index.html" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+    Back to Tools
+  </a>
+
+  <div class="tool-container">
+    <div class="tool-header">
+      <h1 class="tool-title">Unit Converter</h1>
+      <p class="tool-subtitle">Convert between different units of length, weight, temperature, time, and storage instantly.</p>
+    </div>
+
+    <div class="input-section">
+      <div class="unit-inputs">
+        <div class="unit-group">
+          <label class="label-text"><i class="fas fa-layer-group"></i> Category</label>
+          <select id="unit-category"></select>
+        </div>
+        <div class="unit-group">
+          <label class="label-text"><i class="fas fa-ruler"></i> Value</label>
+          <input type="number" id="input-value" placeholder="Enter a number" min="0">
+        </div>
+        <div class="unit-group">
+          <label class="label-text"><i class="fas fa-sign-out-alt"></i> From Unit</label>
+          <select id="from-unit"></select>
+        </div>
+        <div class="unit-group">
+          <label class="label-text"><i class="fas fa-sign-in-alt"></i> To Unit</label>
+          <select id="to-unit"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="convert-section">
+      <button class="convert-btn" id="convert-btn">
+        <i class="fas fa-exchange-alt"></i>
+        Convert
+      </button>
+    </div>
+
+    <div class="output-section">
+      <div class="output-label"><i class="fas fa-equals"></i> Result</div>
+      <div id="result-display">Enter a value and choose units to see the result.</div>
+      <button class="action-btn" id="copy-btn" disabled>
+        <i class="fas fa-copy"></i> Copy Result
+      </button>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
