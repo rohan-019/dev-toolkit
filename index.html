@@ -46,8 +46,7 @@
     <link rel="icon" type="image/x-icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
 
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
+
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
@@ -865,76 +864,7 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // Register Service Worker for PWA functionality
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                const swUrl = new URL('sw.js', window.location.href);
-                navigator.serviceWorker.register(swUrl.href, { scope: './' })
-                    .then(registration => {
-                        console.log('🚀 SW registered successfully:', registration.scope);
 
-                        // Check for updates
-                        registration.addEventListener('updatefound', () => {
-                            const newWorker = registration.installing;
-                            newWorker.addEventListener('statechange', () => {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    showUpdateNotification();
-                                }
-                            });
-                        });
-                    })
-                    .catch(error => {
-                        console.log('❌ SW registration failed:', error);
-                    });
-            });
-        }
-
-        // Show update notification
-        function showUpdateNotification() {
-            const notification = document.createElement('div');
-            notification.className = 'update-notification';
-            notification.innerHTML = `
-                <div class="update-content">
-                    <span>🚀 New version available!</span>
-                    <button onclick="window.location.reload()" class="update-btn">Update</button>
-                </div>
-            `;
-            document.body.appendChild(notification);
-        }
-
-        // PWA Install prompt
-        let deferredPrompt;
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            showInstallPromotion();
-        });
-
-        function showInstallPromotion() {
-            const installBanner = document.createElement('div');
-            installBanner.className = 'install-banner';
-            installBanner.innerHTML = `
-                <div class="install-content">
-                    <span>📱 Install DevToolkit for quick access</span>
-                    <button onclick="installApp()" class="install-btn">Install</button>
-                    <button onclick="this.parentElement.parentElement.remove()" class="close-btn">×</button>
-                </div>
-            `;
-            document.body.appendChild(installBanner);
-        }
-
-        async function installApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                console.log(`User choice: ${outcome}`);
-                deferredPrompt = null;
-                document.querySelector('.install-banner')?.remove();
-            }
-        }
-    </script>
 </body>
 
 </html>
