@@ -232,14 +232,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
   toolCards.forEach((card) => {
     card.addEventListener("mouseenter", function () {
-      this.style.transform = "translateY(-15px) scale(1.02)";
-      this.style.boxShadow = "0 25px 50px rgba(255, 107, 53, 0.15)";
+      if (this.classList.contains("coming-soon")) {
+        this.style.transform = "translateY(-5px) scale(1.01)";
+        this.style.boxShadow = "0 15px 30px rgba(245, 166, 35, 0.15)";
+      } else {
+        this.style.transform = "translateY(-15px) scale(1.02)";
+        this.style.boxShadow = "0 25px 50px rgba(255, 107, 53, 0.15)";
+      }
     });
 
     card.addEventListener("mouseleave", function () {
       this.style.transform = "translateY(0) scale(1)";
       this.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.2)";
     });
+
+    // Add click handler for coming soon cards
+    if (card.classList.contains("coming-soon")) {
+      card.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Show a brief notification
+        const notification = document.createElement("div");
+        notification.className = "coming-soon-notification";
+        notification.innerHTML = "🚧 This tool is coming soon! Check back later.";
+        notification.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: var(--warning-color);
+          color: var(--bg-primary);
+          padding: 1rem 2rem;
+          border-radius: var(--radius-md);
+          font-weight: 600;
+          z-index: 10000;
+          animation: fadeInUp 0.3s ease-out;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          notification.style.animation = "fadeOutDown 0.3s ease-out forwards";
+          setTimeout(() => notification.remove(), 300);
+        }, 2000);
+      });
+    }
   });
 });
 
