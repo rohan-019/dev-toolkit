@@ -1,26 +1,39 @@
 // Modern Dev Toolkit JavaScript
 // Interactive elements and animations
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Initialize all features
-  initTypingEffect();
-  initCounterAnimation();
-  initToolsFilter();
-  initScrollAnimations();
-  initNavbarScroll();
-  initSmoothScrolling();
-  initParallaxEffect();
-  initAdvancedSearch();
-  initThemeSystem();
-  initPerformanceMonitoring();
-  initMobileMenu();
-  initSidebar();
-  initEnhancedNavigation();
-  initMicroAnimations();
-  initSectionAnimations();
+// Global error handling
+window.addEventListener('error', function(e) {
+  console.error('Global error:', e.error);
 });
 
-// Typing Effect Animation
+window.addEventListener('unhandledrejection', function(e) {
+  console.error('Unhandled promise rejection:', e.reason);
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  try {
+    // Initialize all features
+    initTypingEffect();
+    initCounterAnimation();
+    initToolsFilter();
+    initScrollAnimations();
+    initNavbarScroll();
+    initSmoothScrolling();
+    initParallaxEffect();
+    initAdvancedSearch();
+    initThemeSystem();
+    initPerformanceMonitoring();
+    initMobileMenu();
+    initSidebar();
+    initEnhancedNavigation();
+    initMicroAnimations();
+    initSectionAnimations();
+  } catch (error) {
+    console.error('Error during initialization:', error);
+  }
+});
+
+// Typing Effect Animation with performance optimization
 function initTypingEffect() {
   const typingText = document.querySelector(".typing-text");
   if (!typingText) return;
@@ -37,6 +50,7 @@ function initTypingEffect() {
   let charIndex = 0;
   let isDeleting = false;
   let typingSpeed = 100;
+  let animationId;
 
   function typeMessage() {
     const currentMessage = messages[messageIndex];
@@ -58,10 +72,17 @@ function initTypingEffect() {
       messageIndex = (messageIndex + 1) % messages.length;
     }
 
-    setTimeout(typeMessage, typingSpeed);
+    animationId = setTimeout(typeMessage, typingSpeed);
   }
 
   typeMessage();
+  
+  // Cleanup function for better memory management
+  return () => {
+    if (animationId) {
+      clearTimeout(animationId);
+    }
+  };
 }
 
 // Animated Counter
