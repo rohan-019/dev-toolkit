@@ -911,6 +911,34 @@ body {
     color: var(--text-muted);
 }
 
+.suggestion-arrow {
+    color: var(--primary-color);
+    opacity: 0.6;
+    transition: all 0.2s ease;
+}
+
+.suggestion-item:hover .suggestion-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+.coming-soon {
+    font-size: 0.8rem;
+    color: var(--warning-color);
+    font-weight: 500;
+    margin-top: 0.25rem;
+}
+
+.suggestion-item[data-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.suggestion-item[data-disabled="true"]:hover {
+    background: rgba(245, 166, 35, 0.1);
+    color: var(--warning-color);
+}
+
 .search-stats {
     text-align: center;
     color: var(--text-muted);
