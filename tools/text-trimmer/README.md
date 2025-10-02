@@ -53,23 +53,6 @@ A powerful text processing tool that removes leading/trailing whitespace and pro
 - ✅ Safari 12+
 - ✅ Edge 79+
 
-## Screenshots
-
-### Desktop Interface
-
-![Desktop View](screenshots/desktop-main.png)
-*Main interface showing all trimming options and real-time statistics*
-
-### Mobile Responsive Design
-
-![Mobile View](screenshots/mobile-portrait.png)
-*Optimized mobile interface with touch-friendly controls*
-
-### Tool Demonstration
-
-![Workflow Demo](screenshots/workflow-demo.gif)
-*Complete workflow demonstration showing text trimming in action*
-
 ## Contributing
 
 This tool is part of the DevToolkit project. Feel free to contribute improvements or report issues!
