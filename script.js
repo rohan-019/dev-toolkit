@@ -571,6 +571,14 @@ function initAdvancedSearch() {
       icon: "fas fa-fingerprint",
       url: "tools/uuid-generator/index.html",
     },
+    {
+      name: "Image to PDF Converter",
+      description: "Convert your images into Pdfs",
+      category: "utility",
+      keywords: ["jpg", "converter", "pdf", "image"],
+      icon: "fas fa-file-pdf",
+      url: "tools/image-to-pdf/index.html",
+    },
   ];
 
   let searchTimeout;
