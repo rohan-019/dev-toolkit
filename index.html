@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +10,10 @@
 
     <!-- SEO Meta Tags -->
     <meta name="description"
+       
         content="DevToolkit - A beautiful collection of free web-based developer tools. Word counter, JSON formatter, color picker, and more. Perfect for Hacktoberfest 2025 contributions!">
     <meta name="keywords"
+       
         content="developer tools, web tools, JSON formatter, word counter, color picker, hacktoberfest, open source, free tools, programming utilities">
     <meta name="author" content="Md Saiyad Ali">
     <meta name="robots" content="index, follow">
@@ -24,6 +27,7 @@
     <meta property="og:url" content="https://heysaiyad.github.io/dev-toolkit/">
     <meta property="og:title" content="DevToolkit - Free Developer Tools Collection">
     <meta property="og:description"
+       
         content="Beautiful collection of free web-based developer tools. Perfect for Hacktoberfest 2025 contributions!">
     <meta property="og:image" content="https://heysaiyad.github.io/dev-toolkit/poster.png">
     <meta property="og:site_name" content="DevToolkit">
@@ -33,6 +37,7 @@
     <meta property="twitter:url" content="https://heysaiyad.github.io/dev-toolkit/">
     <meta property="twitter:title" content="DevToolkit - Free Developer Tools Collection">
     <meta property="twitter:description"
+       
         content="Beautiful collection of free web-based developer tools. Perfect for Hacktoberfest 2025 contributions!">
     <meta property="twitter:image" content="https://heysaiyad.github.io/dev-toolkit/poster.png">
 
@@ -47,6 +52,7 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon"
+       
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
 
 
@@ -80,6 +86,7 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+       
         rel="stylesheet">
 </head>
 
@@ -283,7 +290,7 @@
             </p>
             <div class="hero-stats">
                 <div class="stat">
-                    <span class="stat-number" data-target="15">0</span>
+                    <span class="stat-number" data-stat="tools" data-target="15">0</span>
                     <span class="stat-label">Tools Available</span>
                 </div>
                 <div class="stat">
@@ -381,6 +388,7 @@
                 <div class="search-wrapper">
                     <i class="fas fa-search search-icon"></i>
                     <input type="text" class="search-input"
+                       
                         placeholder="Search tools... (try 'word', 'text', or 'counter')" id="toolSearch">
                     <div class="search-suggestions" id="searchSuggestions"></div>
                 </div>
@@ -457,6 +465,7 @@
                     <div class="tool-content">
                         <h3 class="tool-title">Lorem Ipsum Generator</h3>
                         <p class="tool-description">Generate customizable placeholder text by words or paragraphs for
+                           
                             your design and development projects. Perfect for mockups and prototyping.</p>
                         <div class="tool-tags">
                             <span class="tag">Text</span>
@@ -489,6 +498,25 @@
                 </a>
 
 
+                <!-- JSON Formatter -->
+                <div class="tool-card" data-category="code">
+                    <div class="tool-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">JSON Formatter</h3>
+                        <p class="tool-description">Format, validate and beautify JSON data with syntax highlighting and
+                           
+                            error detection.</p>
+                        <div class="tool-tags">
+                            <span class="tag">JSON</span>
+                            <span class="tag">Format</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
 
                 <!-- Timer & Stopwatch -->
                 <a href="tools/timer-stopwatch/index.html" class="tool-card" data-category="utility">
@@ -510,6 +538,26 @@
                     </div>
                 </a>
 
+
+                <!-- Color Picker -->
+                <div class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Color Picker</h3>
+                        <p class="tool-description">Generate color palettes, convert between formats, and find perfect
+                           
+                            color combinations.</p>
+                        <div class="tool-tags">
+                            <span class="tag">Color</span>
+                            <span class="tag">Design</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
 
                 <!-- Base64 Encoder/Decoder -->
                 <a href="tools/base64-encoder/index.html" class="tool-card" data-category="utility">
@@ -579,6 +627,7 @@
                     <div class="tool-content">
                         <h3 class="tool-title">Password Generator</h3>
                         <p class="tool-description">Generate secure passwords with customizable length and character
+                           
                             sets.</p>
                         <div class="tool-tags">
                             <span class="tag">Security</span>
@@ -611,6 +660,44 @@
                 </a>
 
 
+
+                <!-- QR Code Generator -->
+                <div class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">QR Code Generator</h3>
+                        <p class="tool-description">Create QR codes for URLs, text, WiFi, and more with customizable
+                           
+                            styling.</p>
+                        <div class="tool-tags">
+                            <span class="tag">QR Code</span>
+                            <span class="tag">Generator</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+                
+                <!-- Hexadecimal to RGB Converter -->
+                <a href="tools/hex-to-rgb-converter/index.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                       <i class="fas fa-solid fa-backward"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Hex to RGB Converter</h3>
+                        <p class="tool-description">Convert the hexadecimal to RGB color code in a single click.</p>
+                        <div class="tool-tags">
+                            <span class="tag">Hex to RGB</span>
+                            <span class="tag">Converter</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
                 <!-- UUID Generator -->
                 <a href="tools/uuid-generator/index.html" class="tool-card" data-category="utility">
                     <div class="tool-icon">
@@ -666,6 +753,24 @@
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
+                <!-- Text Trimmer -->
+                <a href="tools/text-trimmer/index.html" class="tool-card" data-category="text">
+                    <div class="tool-icon">
+                        <i class="fas fa-scissors"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Text Trimmer</h3>
+                        <p class="tool-description">Remove leading/trailing whitespace and normalize spaces in your text. Perfect for data cleaning and text preprocessing.</p>
+                        <div class="tool-tags">
+                            <span class="tag">Text</span>
+                            <span class="tag">Trim</span>
+                            <span class="tag">Clean</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
                 <a href="tools/code-beautifier/index.html" class="tool-card" data-category="code">
                     <div class="tool-icon">
                         <i class="fas fa-code tool-icon"></i>
@@ -711,6 +816,7 @@
                     <div class="tool-content">
                         <h3 class="tool-title">Add Your Tool</h3>
                         <p class="tool-description">Contribute a new tool and be part of Hacktoberfest 2025! Help us
+                           
                             build the ultimate developer toolkit.</p>
                         <div class="tool-tags">
                             <span class="tag">Contribute</span>
@@ -805,6 +911,7 @@
                                 Connect on LinkedIn
                             </a>
                             <a href="https://github.com/heysaiyad" target="_blank"
+                               
                                 class="btn btn-secondary creator-btn">
                                 <i class="fab fa-github"></i>
                                 Follow on GitHub
@@ -879,6 +986,7 @@
     <script src="script.js"></script>
 
 </body>
+
 
 </html>
 
