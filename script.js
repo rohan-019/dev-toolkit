@@ -1378,15 +1378,25 @@ function initMicroAnimations() {
 
   // Enhanced filter button animations
   const filterButtons = document.querySelectorAll(".filter-btn");
-  filterButtons.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      // Add a quick pulse animation
-      this.style.animation = "none";
-      setTimeout(() => {
-        this.style.animation = "filterPulse 0.3s ease-out";
-      }, 10);
+  filterButtons.forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    // remove pulsing class from all buttons and force reflow
+    filterButtons.forEach((b) => {
+      b.classList.remove("pulse");
+      void b.offsetWidth;
     });
+
+    // add class to clicked button
+    this.classList.add("filter-btn-active");
+
+    // remove class after animation ends (so it can be re-added next click)
+    const onEnd = () => {
+      this.classList.remove("filter-btn-active");
+      this.removeEventListener("animationend", onEnd);
+    };
+    this.addEventListener("animationend", onEnd);
   });
+});
 
   // Add loading shimmer to cards initially
   setTimeout(() => {

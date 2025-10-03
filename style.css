@@ -1287,9 +1287,13 @@ body {
     font-weight: 500;
     position: relative;
     overflow: hidden;
-    opacity: 0;
+    opacity: 1;
     transform: translateY(20px);
     animation: slideInFilter 0.5s ease-out forwards;
+}
+
+.filter-btn.filter-btn-active {
+  animation: filterPulse 0.3s ease-out;
 }
 
 .filter-btn:nth-child(1) { animation-delay: 0.1s; }
