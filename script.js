@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initEnhancedNavigation();
     initMicroAnimations();
     initSectionAnimations();
+    initBackToTop();
     
     // Hide loading screen after initialization
     setTimeout(hideLoadingScreen, 1500);
@@ -1495,4 +1496,113 @@ function initSectionAnimations() {
     element.style.transition = "all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
     revealObserver.observe(element);
   });
+}
+
+// Back to Top Button functionality
+function initBackToTop() {
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  
+  if (!backToTopBtn) return;
+
+  // Throttle function for performance optimization
+  function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
+      }
+    }
+  }
+
+  // Show/hide button based on scroll position
+  const toggleBackToTopButton = throttle(() => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const showThreshold = 300; // Show button after scrolling 300px
+    
+    if (scrollTop > showThreshold) {
+      backToTopBtn.classList.add('show');
+    } else {
+      backToTopBtn.classList.remove('show');
+    }
+  }, 100);
+
+  // Smooth scroll to top function
+  function scrollToTop() {
+    const scrollDuration = 800;
+    const scrollStep = -window.scrollY / (scrollDuration / 15);
+    
+    function scrollInterval() {
+      if (window.scrollY !== 0) {
+        window.scrollBy(0, scrollStep);
+        setTimeout(scrollInterval, 15);
+      }
+    }
+    
+    scrollInterval();
+  }
+
+  // Alternative smooth scroll using requestAnimationFrame for better performance
+  function smoothScrollToTop() {
+    const startPosition = window.pageYOffset;
+    const startTime = performance.now();
+    const duration = 600;
+
+    function animation(currentTime) {
+      const timeElapsed = currentTime - startTime;
+      const run = ease(timeElapsed, startPosition, -startPosition, duration);
+      window.scrollTo(0, run);
+      
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      }
+    }
+
+    // Easing function for smooth animation
+    function ease(t, b, c, d) {
+      t /= d / 2;
+      if (t < 1) return c / 2 * t * t + b;
+      t--;
+      return -c / 2 * (t * (t - 2) - 1) + b;
+    }
+
+    requestAnimationFrame(animation);
+  }
+
+  // Event listeners
+  window.addEventListener('scroll', toggleBackToTopButton, { passive: true });
+  
+  backToTopBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    // Add click animation
+    backToTopBtn.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      backToTopBtn.style.transform = '';
+    }, 150);
+    
+    // Use modern smooth scroll if supported, fallback to custom animation
+    if ('scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      smoothScrollToTop();
+    }
+  });
+
+  // Keyboard accessibility
+  backToTopBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      backToTopBtn.click();
+    }
+  });
+
+  // Initial check in case page is already scrolled
+  toggleBackToTopButton();
 }
