@@ -1825,8 +1825,8 @@ body {
 /* Tool Arrow */
 .tool-arrow {
     position: absolute;
-    top: 2rem;
     right: 2rem;
+    bottom: 2rem;
     width: 40px;
     height: 40px;
     display: flex;
@@ -1845,6 +1845,9 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.tool-arrow i {
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
 .tool-card:hover .tool-arrow {
     background: linear-gradient(135deg, 
         var(--primary-color) 0%, 
@@ -1855,6 +1858,10 @@ body {
     box-shadow: 
         0 8px 25px rgba(255, 107, 53, 0.4),
         0 0 40px rgba(255, 107, 53, 0.3);
+}
+.tool-card:hover .tool-arrow i {
+    /* Counter-rotate the icon to keep it pointing right */
+    transform: rotate(-45deg);
 }
 
 /* Better layout for tool cards */
@@ -1929,11 +1936,6 @@ body {
 
 .tool-arrow {
     align-self: flex-end;
-    color: var(--text-muted);
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    font-size: 1.1rem;
-    opacity: 0.7;
-    position: relative;
 }
 
 .tool-arrow::after {
@@ -1946,16 +1948,6 @@ body {
     background: var(--primary-color);
     transition: width 0.3s ease;
     transform: translateY(-50%);
-}
-
-.tool-card:hover .tool-arrow {
-    color: var(--primary-color);
-    transform: translateX(8px) scale(1.2);
-    opacity: 1;
-}
-
-.tool-card:hover .tool-arrow::after {
-    width: 15px;
 }
 
 /* Bouncing arrow animation */
