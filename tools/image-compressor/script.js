@@ -281,12 +281,11 @@
         downloadLink.removeAttribute('disabled');
     }
 
-    function onFileChange() {
-        const f = fileInput.files && fileInput.files[0];
+    function processSelectedFile(f) {
         if (!f) return;
         if (!/^image\/(png|jpeg)$/.test(f.type)) {
             alert('Please select a JPG or PNG image.');
-            fileInput.value = '';
+            if (fileInput) fileInput.value = '';
             return;
         }
         originalFile = f;
@@ -310,6 +309,11 @@
         }).catch(() => {
             alert('Failed to load image.');
         });
+    }
+
+    function onFileChange() {
+        const f = fileInput.files && fileInput.files[0];
+        processSelectedFile(f);
     }
 
     function onQualityInput() {
@@ -387,7 +391,45 @@
     }, 200);
 
     // Events
-    fileInput.addEventListener('change', onFileChange);
+    if (fileInput) fileInput.addEventListener('change', onFileChange);
+
+    // Use Original preview as uploader (click and drag-drop)
+    if (origPreview) {
+        origPreview.addEventListener('click', () => {
+            if (fileInput) fileInput.click();
+        });
+        origPreview.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                if (fileInput) fileInput.click();
+            }
+        });
+        const setDrag = (on) => {
+            if (on) origPreview.classList.add('dragover'); else origPreview.classList.remove('dragover');
+        };
+        ['dragenter','dragover'].forEach(type => {
+            origPreview.addEventListener(type, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setDrag(true);
+            });
+        });
+        ['dragleave','dragend','drop'].forEach(type => {
+            origPreview.addEventListener(type, (e) => {
+                if (type !== 'drop') setDrag(false);
+            });
+        });
+        origPreview.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setDrag(false);
+            const files = e.dataTransfer && e.dataTransfer.files;
+            if (!files || !files.length) return;
+            const f = files[0];
+            processSelectedFile(f);
+        });
+    }
+
     qualityRange.addEventListener('input', () => {
         onQualityInput();
     });

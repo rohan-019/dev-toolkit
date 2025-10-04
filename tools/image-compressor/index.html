@@ -90,11 +90,40 @@
     .label { color: var(--text-primary); font-size: 0.9rem; opacity: 0.9; }
     .stat { font-size: 0.85rem; color: var(--text-secondary); }
 
+    .checkbox-wrapper { position: relative; display: inline-flex; align-items: center; gap: 8px; }
+    .checkbox-wrapper input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--primary-color);
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .checkbox-wrapper input[type="checkbox"]:checked {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    .checkbox-wrapper input[type="checkbox"]:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
     .preview-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .preview { background: var(--bg-tertiary); border: 1px dashed rgba(255,255,255,0.2); border-radius: var(--radius-lg); min-height: 220px; display: flex; align-items: center; justify-content: center; overflow: auto; position: relative; }
+    .preview.uploader { cursor: pointer; }
+    .preview.uploader.dragover { border-color: var(--primary-color); background: rgba(255,107,53,0.06); }
     .preview .resizable { resize: both; overflow: auto; display: inline-block; }
     .preview img, .preview canvas { width: 100%; height: 100%; display: block; object-fit: contain; }
-    .badge { position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.06); padding: 4px 8px; border-radius: 999px; font-size: 12px; color: var(--text-primary); border: 1px solid rgba(255,255,255,0.12); }
+    .badge { position: absolute; top: 8px; left: 8px; background: rgb(67 78 92); padding: 4px 8px; border-radius: 999px; font-size: 12px; color: var(--text-primary); border: 1px solid rgba(255,255,255,0.12); }
 
     .actions { display: flex; gap: 10px; }
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: var(--radius-md); background: var(--primary-color); color: #fff; border: 1px solid transparent; cursor: pointer; font-weight: 600; transition: all .2s ease; }
@@ -134,15 +163,13 @@
       <h1 class="tool-title">Image Compressor</h1>
       <p class="tool-subtitle">Compress JPG/PNG images in your browser. Adjust quality, optionally resize, and download instantly. All processing happens locally.</p>
     </div>
-
+    <div>
+        <label class="label hidden" for="fileInput">Select image (JPG or PNG)</label>
+        <input id="fileInput" type="file" accept="image/jpeg,image/png" class="hidden" />
+    </div>
     <main>
       <section class="panel">
         <div class="row">
-          <div>
-            <label class="label" for="fileInput">Select image (JPG or PNG)</label>
-            <input id="fileInput" type="file" accept="image/jpeg,image/png" />
-            <div class="note">We process images entirely in your browser. No upload to a server.</div>
-          </div>
           <div class="controls">
             <div class="slider-row">
               <span class="label">Quality</span>
@@ -166,9 +193,9 @@
                 <label class="label" for="maxHeight">Max height (px)</label>
                 <input id="maxHeight" type="number" min="1" placeholder="e.g., 1080 (optional)" />
               </div>
-              <div style="display:flex; align-items:center; gap:8px;">
+              <div class="checkbox-wrapper">
                 <input id="keepAspect" type="checkbox" checked />
-                <label class="label" for="keepAspect" style="margin:0;">Keep aspect ratio</label>
+                <label class="label" for="keepAspect" style="margin:0; cursor:pointer;">Keep aspect ratio</label>
               </div>
             </div>
           </div>
@@ -176,9 +203,9 @@
       </section>
 
       <section class="panel preview-wrap">
-        <div class="preview" id="origPreview">
+        <div class="preview uploader" id="origPreview" role="button" tabindex="0" aria-label="Upload image by clicking or dropping here">
           <span class="badge">Original</span>
-          <span class="note">No image selected</span>
+          <span class="note">Click or drop an image here</span>
         </div>
         <div class="preview" id="compPreview">
           <span class="badge">Compressed</span>
