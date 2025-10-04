@@ -732,6 +732,14 @@ function initAdvancedSearch() {
       url: "tools/uuid-generator/index.html",
     },
     {
+      name: "Image to PDF Converter",
+      description: "Convert your images into Pdfs",
+      category: "utility",
+      keywords: ["jpg", "converter", "pdf", "image"],
+      icon: "fas fa-file-pdf",
+      url: "tools/image-to-pdf/index.html",
+    },
+    {
       name: "QR Code Generator",
       description: "Create QR codes for URLs, text, WiFi, and more with customizable styling.",
       category: "utility",
