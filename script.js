@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initEnhancedNavigation();
     initMicroAnimations();
     initSectionAnimations();
+    initBackToTop();
     
     // Hide loading screen after initialization
     setTimeout(hideLoadingScreen, 1500);
@@ -322,14 +323,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
   toolCards.forEach((card) => {
     card.addEventListener("mouseenter", function () {
-      this.style.transform = "translateY(-15px) scale(1.02)";
-      this.style.boxShadow = "0 25px 50px rgba(255, 107, 53, 0.15)";
+      if (this.classList.contains("coming-soon")) {
+        this.style.transform = "translateY(-5px) scale(1.01)";
+        this.style.boxShadow = "0 15px 30px rgba(245, 166, 35, 0.15)";
+      } else {
+        this.style.transform = "translateY(-15px) scale(1.02)";
+        this.style.boxShadow = "0 25px 50px rgba(255, 107, 53, 0.15)";
+      }
     });
 
     card.addEventListener("mouseleave", function () {
       this.style.transform = "translateY(0) scale(1)";
       this.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.2)";
     });
+
+    // Add click handler for coming soon cards
+    if (card.classList.contains("coming-soon")) {
+      card.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Show a brief notification
+        const notification = document.createElement("div");
+        notification.className = "coming-soon-notification";
+        notification.innerHTML = "🚧 This tool is coming soon! Check back later.";
+        notification.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: var(--warning-color);
+          color: var(--bg-primary);
+          padding: 1rem 2rem;
+          border-radius: var(--radius-md);
+          font-weight: 600;
+          z-index: 10000;
+          animation: fadeInUp 0.3s ease-out;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          notification.style.animation = "fadeOutDown 0.3s ease-out forwards";
+          setTimeout(() => notification.remove(), 300);
+        }, 2000);
+      });
+    }
   });
 });
 
@@ -449,15 +488,57 @@ function initAdvancedSearch() {
   const resultCount = document.getElementById("resultCount");
   const toolCards = document.querySelectorAll(".tool-card:not(.add-tool-card)");
 
-  // Tool database for search
+  // Tool database for search - Complete list of all available tools
   const toolsDatabase = [
     {
       name: "Word Counter",
       description: "Advanced text analysis tool with real-time word, character, and paragraph counting",
       category: "text",
-      keywords: ["word", "count", "text", "character", "paragraph", "analysis"],
+      keywords: ["word", "count", "text", "character", "paragraph", "analysis", "writing", "blog"],
       icon: "fas fa-font",
       url: "tools/word-counter/index.html",
+    },
+    {
+      name: "Line Sorter & Unique",
+      description: "Sort text lines alphabetically and remove duplicates. Perfect for cleaning up lists, organizing data, and removing redundant lines from text files.",
+      category: "text",
+      keywords: ["line", "sort", "sorter", "unique", "duplicate", "alphabetical", "organize", "list", "clean"],
+      icon: "fas fa-sort-alpha-down",
+      url: "tools/line-sorter-unique/index.html",
+    },
+    {
+      name: "Lorem Ipsum Generator",
+      description:
+        "Generate customizable placeholder text by words or paragraphs for your design and development projects. Perfect for mockups and prototyping.",
+      category: "text",
+      keywords: ["lorem", "ipsum", "generator", "placeholder", "text", "mockup", "prototype", "design"],
+      icon: "fas fa-align-justify",
+      url: "tools/lorem-ipsum-generator/index.html",
+    },
+    {
+      name: "String Reverser",
+      description: "Reverse any text instantly for coding exercises, data transformation, input testing, obfuscation, and playful text effects.",
+      category: "text",
+      keywords: ["string", "reverse", "text", "flip", "backward", "coding", "transform"],
+      icon: "fas fa-sync-alt",
+      url: "tools/string-reverser/index.html",
+    },
+    {
+      name: "Markdown Previewer",
+      description:
+        "Write and preview Markdown in real-time with split-view editor. Export to HTML, MD, or plain text.",
+      category: "code",
+      keywords: ["markdown", "preview", "editor", "md", "html", "export", "real-time"],
+      icon: "fas fa-markdown",
+      url: "tools/markdown-previewer/index.html",
+    },
+    {
+      name: "Code Beautifier",
+      description: "Paste messy HTML code and instantly get beautifully formatted code.",
+      category: "code",
+      keywords: ["code", "beautify", "format", "html", "pretty", "clean", "indent"],
+      icon: "fas fa-code",
+      url: "tools/code-beautifier/index.html",
     },
     {
       name: "Line Sorter & Unique",
@@ -498,6 +579,85 @@ function initAdvancedSearch() {
       keywords: ["code", "format", "beautify", "syntax", "html", "css", "js"],
       icon: "fas fa-code",
       url: "tools/code-beautifier/index.html",
+    },
+    {
+      name: "Timer & Stopwatch",
+      description:
+        "Countdown timer and stopwatch with lap tracking, audio alerts, and keyboard shortcuts.",
+      category: "utility",
+      keywords: ["timer", "stopwatch", "countdown", "lap", "alert", "time", "track"],
+      icon: "fas fa-clock",
+      url: "tools/timer-stopwatch/index.html",
+    },
+    {
+      name: "Password Generator",
+      description:
+        "Generate secure passwords with customizable length and character sets.",
+      category: "utility",
+      keywords: ["password", "generator", "secure", "random", "character", "security"],
+      icon: "fas fa-key",
+      url: "tools/password-generator/index.html",
+    },
+    {
+      name: "Base64 Encoder/Decoder",
+      description:
+        "Encode text to Base64 or decode Base64 strings. Support for text and file conversion.",
+      category: "utility",
+      keywords: ["base64", "encode", "decode", "encoder", "decoder", "text", "file", "conversion"],
+      icon: "fas fa-lock",
+      url: "tools/base64-encoder/index.html",
+    },
+    {
+      name: "Image to Base64 Converter",
+      description: "Convert images to Base64 encoded strings. Perfect for embedding images directly in HTML, CSS, or JSON files.",
+      category: "utility",
+      keywords: ["image", "base64", "convert", "converter", "embed", "html", "css", "json"],
+      icon: "fas fa-image",
+      url: "tools/image-base64-converter/index.html",
+    },
+    {
+      name: "URL Encoder/Decoder",
+      description:
+        "Encode or decode URLs to ensure proper formatting. Convert special characters and spaces for safe URL transmission.",
+      category: "utility",
+      keywords: ["url", "encode", "decode", "encoder", "decoder", "format", "character", "space"],
+      icon: "fas fa-link",
+      url: "tools/url-encoder-decoder/index.html",
+    },
+    {
+      name: "UUID Generator",
+      description:
+        "Generate Universally Unique Identifiers (UUIDs) instantly for database keys, session IDs, and unique identifiers.",
+      category: "utility",
+      keywords: ["uuid", "generator", "unique", "identifier", "database", "key", "session", "id"],
+      icon: "fas fa-fingerprint",
+      url: "tools/uuid-generator/index.html",
+    },
+    {
+      name: "Unix Timestamp Converter",
+      description:
+        "A simple tool to convert human-readable dates into Unix timestamps and convert Unix timestamps back into readable date/time.",
+      category: "utility",
+      keywords: ["unix", "timestamp", "converter", "date", "time", "epoch", "convert"],
+      icon: "fas fa-clock",
+      url: "tools/unix-timestamp-converter/index.html",
+    },
+    {
+      name: "Percentage Calculator",
+      description: "Easily calculate percentages with this intuitive calculator. Find out what is X% of Y in seconds.",
+      category: "utility",
+      keywords: ["percentage", "calculator", "percent", "math", "calculate", "ratio"],
+      icon: "fas fa-calculator",
+      url: "tools/percentage-calculator/index.html",
+    },
+    {
+      name: "Even Odd Checker",
+      description:
+        "A simple tool to check whether a number is even or odd. Perfect for quick mathematical verifications.",
+      category: "utility",
+      keywords: ["even", "odd", "checker", "number", "math", "verify", "parity"],
+      icon: "fas fa-calculator",
+      url: "tools/even-odd-checker/index.html",
     },
     {
       name: "Even Odd Checker",
@@ -571,6 +731,22 @@ function initAdvancedSearch() {
       icon: "fas fa-fingerprint",
       url: "tools/uuid-generator/index.html",
     },
+    {
+      name: "Image to PDF Converter",
+      description: "Convert your images into Pdfs",
+      category: "utility",
+      keywords: ["jpg", "converter", "pdf", "image"],
+      icon: "fas fa-file-pdf",
+      url: "tools/image-to-pdf/index.html",
+    },
+    {
+      name: "QR Code Generator",
+      description: "Create QR codes for URLs, text, WiFi, and more with customizable styling.",
+      category: "utility",
+      keywords: ["qr", "code", "generator", "url", "text", "wifi", "scan"],
+      icon: "fas fa-qrcode",
+      url: "#",
+    },
   ];
 
   let searchTimeout;
@@ -597,8 +773,7 @@ function initAdvancedSearch() {
   function handleSearch(query) {
     const results = fuzzySearch(query, toolsDatabase);
     updateToolDisplay(results, query);
-    updateResultCount(results.length);
-
+    
     if (query.length > 0) {
       showSuggestions(query, results);
     } else {
@@ -610,20 +785,42 @@ function initAdvancedSearch() {
   function fuzzySearch(query, tools) {
     if (!query) return tools;
 
-    query = query.toLowerCase();
+    query = query.toLowerCase().trim();
+    const queryWords = query.split(/\s+/);
+    
     return tools.filter((tool) => {
-      const searchText = `${tool.name} ${tool.description} ${tool.keywords.join(
-        " "
-      )}`.toLowerCase();
-
+      const searchText = `${tool.name} ${tool.description} ${tool.keywords.join(" ")}`.toLowerCase();
+      
       // Exact match gets highest priority
       if (searchText.includes(query)) return true;
-
-      // Fuzzy matching for typos
-      const words = query.split(" ");
-      return words.some((word) => {
-        return tool.keywords.some((keyword) => {
-          return levenshteinDistance(word, keyword) <= 2;
+      
+      // Check if tool name starts with query
+      if (tool.name.toLowerCase().startsWith(query)) return true;
+      
+      // Check individual words
+      const nameWords = tool.name.toLowerCase().split(/\s+/);
+      const hasWordMatch = queryWords.some(queryWord => {
+        if (queryWord.length < 2) return false;
+        
+        // Check exact word matches
+        if (nameWords.some(nameWord => nameWord.includes(queryWord))) return true;
+        
+        // Check keywords
+        return tool.keywords.some(keyword => {
+          const keywordLower = keyword.toLowerCase();
+          return keywordLower.includes(queryWord) || 
+                 keywordLower.startsWith(queryWord) ||
+                 levenshteinDistance(queryWord, keywordLower) <= 1;
+        });
+      });
+      
+      if (hasWordMatch) return true;
+      
+      // Fuzzy matching for typos (more lenient)
+      return queryWords.some(word => {
+        if (word.length < 3) return false;
+        return tool.keywords.some(keyword => {
+          return levenshteinDistance(word, keyword.toLowerCase()) <= Math.floor(word.length / 3);
         });
       });
     });
@@ -665,7 +862,7 @@ function initAdvancedSearch() {
       .slice(0, 5)
       .map(
         (tool) => `
-            <div class="suggestion-item" data-url="${tool.url}">
+            <div class="suggestion-item" data-url="${tool.url}" ${tool.url === '#' ? 'data-disabled="true"' : ''}>
                 <div class="suggestion-icon">
                     <i class="${tool.icon}"></i>
                 </div>
@@ -678,7 +875,9 @@ function initAdvancedSearch() {
                       tool.description,
                       query
                     )}</div>
+                    ${tool.url === '#' ? '<div class="coming-soon">Coming Soon</div>' : ''}
                 </div>
+                ${tool.url !== '#' ? '<div class="suggestion-arrow"><i class="fas fa-arrow-right"></i></div>' : ''}
             </div>
         `
       )
@@ -691,8 +890,13 @@ function initAdvancedSearch() {
     searchSuggestions.querySelectorAll(".suggestion-item").forEach((item) => {
       item.addEventListener("click", function () {
         const url = this.getAttribute("data-url");
-        if (url !== "#") {
+        const isDisabled = this.getAttribute("data-disabled") === "true";
+        
+        if (url && url !== "#" && !isDisabled) {
           window.location.href = url;
+        } else if (isDisabled) {
+          // Optionally show a message for coming soon tools
+          console.log("This tool is coming soon!");
         }
       });
     });
@@ -716,31 +920,16 @@ function initAdvancedSearch() {
     
     toolCards.forEach((card) => {
       const toolName = card.querySelector(".tool-title")?.textContent || "";
-      const toolDesc = card.querySelector(".tool-description")?.textContent || "";
+      const toolDesc =
+        card.querySelector(".tool-description")?.textContent || "";
 
-      let isMatch = false;
-      
-      if (query.length === 0) {
-        isMatch = true;
-      } else {
-        // Check exact matches from search results
-        isMatch = results.some((result) => 
-          result.name.toLowerCase() === toolName.toLowerCase()
-        );
-        
-        // Also check direct text matching as fallback
-        if (!isMatch) {
-          const searchTerm = query.toLowerCase();
-          isMatch = toolName.toLowerCase().includes(searchTerm) ||
-                   toolDesc.toLowerCase().includes(searchTerm);
-        }
-      }
+      const isMatch = results.some(
+        (result) => result.name.toLowerCase() === toolName.toLowerCase()
+      );
 
-      if (isMatch) {
+      if (query.length === 0 || isMatch) {
         card.style.display = "flex";
         card.style.animation = "fadeInUp 0.5s ease-out";
-        card.classList.remove('hidden');
-        visibleCount++;
       } else {
         card.style.display = "none";
         card.classList.add('hidden');
@@ -1151,14 +1340,54 @@ function initSidebar() {
   // Sidebar search functionality
   if (sidebarSearch) {
     sidebarSearch.addEventListener("input", function () {
-      const searchTerm = this.value.toLowerCase();
+      const searchTerm = this.value.toLowerCase().trim();
       const toolLinks = document.querySelectorAll(".sidebar-tool-link");
       const sections = document.querySelectorAll(".sidebar-section");
 
+      if (searchTerm === "") {
+        // Show all tools when search is empty
+        toolLinks.forEach((link) => {
+          link.style.display = "flex";
+        });
+        sections.forEach((section) => {
+          section.style.display = "block";
+        });
+        return;
+      }
+
+      const searchWords = searchTerm.split(/\s+/);
+
       toolLinks.forEach((link) => {
-        const toolName =
-          link.querySelector("span")?.textContent.toLowerCase() || "";
-        const isMatch = toolName.includes(searchTerm);
+        const toolName = link.querySelector("span")?.textContent.toLowerCase() || "";
+        
+        // Check for matches using the same logic as main search
+        let isMatch = false;
+        
+        // Exact match
+        if (toolName.includes(searchTerm)) {
+          isMatch = true;
+        } else {
+          // Check individual words
+          isMatch = searchWords.some(word => {
+            if (word.length < 2) return false;
+            return toolName.includes(word) || toolName.startsWith(word);
+          });
+          
+          // Fuzzy matching with database
+          if (!isMatch) {
+            const dbTool = toolsDatabase.find(tool => 
+              tool.name.toLowerCase() === toolName
+            );
+            if (dbTool) {
+              isMatch = searchWords.some(word => {
+                return dbTool.keywords.some(keyword => 
+                  keyword.toLowerCase().includes(word) ||
+                  levenshteinDistance(word, keyword.toLowerCase()) <= 1
+                );
+              });
+            }
+          }
+        }
 
         link.style.display = isMatch ? "flex" : "none";
       });
@@ -1495,4 +1724,113 @@ function initSectionAnimations() {
     element.style.transition = "all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
     revealObserver.observe(element);
   });
+}
+
+// Back to Top Button functionality
+function initBackToTop() {
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  
+  if (!backToTopBtn) return;
+
+  // Throttle function for performance optimization
+  function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
+      }
+    }
+  }
+
+  // Show/hide button based on scroll position
+  const toggleBackToTopButton = throttle(() => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const showThreshold = 300; // Show button after scrolling 300px
+    
+    if (scrollTop > showThreshold) {
+      backToTopBtn.classList.add('show');
+    } else {
+      backToTopBtn.classList.remove('show');
+    }
+  }, 100);
+
+  // Smooth scroll to top function
+  function scrollToTop() {
+    const scrollDuration = 800;
+    const scrollStep = -window.scrollY / (scrollDuration / 15);
+    
+    function scrollInterval() {
+      if (window.scrollY !== 0) {
+        window.scrollBy(0, scrollStep);
+        setTimeout(scrollInterval, 15);
+      }
+    }
+    
+    scrollInterval();
+  }
+
+  // Alternative smooth scroll using requestAnimationFrame for better performance
+  function smoothScrollToTop() {
+    const startPosition = window.pageYOffset;
+    const startTime = performance.now();
+    const duration = 600;
+
+    function animation(currentTime) {
+      const timeElapsed = currentTime - startTime;
+      const run = ease(timeElapsed, startPosition, -startPosition, duration);
+      window.scrollTo(0, run);
+      
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      }
+    }
+
+    // Easing function for smooth animation
+    function ease(t, b, c, d) {
+      t /= d / 2;
+      if (t < 1) return c / 2 * t * t + b;
+      t--;
+      return -c / 2 * (t * (t - 2) - 1) + b;
+    }
+
+    requestAnimationFrame(animation);
+  }
+
+  // Event listeners
+  window.addEventListener('scroll', toggleBackToTopButton, { passive: true });
+  
+  backToTopBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    // Add click animation
+    backToTopBtn.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      backToTopBtn.style.transform = '';
+    }, 150);
+    
+    // Use modern smooth scroll if supported, fallback to custom animation
+    if ('scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      smoothScrollToTop();
+    }
+  });
+
+  // Keyboard accessibility
+  backToTopBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      backToTopBtn.click();
+    }
+  });
+
+  // Initial check in case page is already scrolled
+  toggleBackToTopButton();
 }
