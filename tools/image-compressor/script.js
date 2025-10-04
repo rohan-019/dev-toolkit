@@ -14,6 +14,24 @@ const infoCompressed = document.getElementById('infoCompressed');
 const infoSavings = document.getElementById('infoSavings');
 const transparencyNote = document.getElementById('transparencyNote');
 
+// Accessibility-friendly toggle for the download link state
+function setDownloadEnabled(enabled) {
+    if (!downloadLink) return;
+    if (enabled) {
+        downloadLink.removeAttribute('aria-disabled');
+        downloadLink.removeAttribute('tabindex');
+        downloadLink.classList.remove('is-disabled');
+        downloadLink.removeAttribute('disabled');
+    } else {
+        downloadLink.setAttribute('aria-disabled', 'true');
+        downloadLink.setAttribute('tabindex', '-1');
+        downloadLink.classList.add('is-disabled');
+        downloadLink.setAttribute('disabled', '');
+        downloadLink.removeAttribute('href');
+        downloadLink.removeAttribute('download');
+    }
+}
+
 let originalFile = null;
 let originalImg = null;
 let compressedBlob = null;
@@ -277,7 +295,7 @@ async function compress() {
     const ext = targetType === 'image/png' ? 'png' : 'jpg';
     downloadLink.href = compressedURL;
     downloadLink.download = `${baseName}-compressed.${ext}`;
-    downloadLink.removeAttribute('disabled');
+    setDownloadEnabled(true);
 }
 
 function processSelectedFile(f) {
@@ -392,6 +410,16 @@ const debouncedCompress = debounce(() => {
 // Events
 if (fileInput) fileInput.addEventListener('change', onFileChange);
 
+// Prevent interaction when download link is disabled (accessibility)
+if (downloadLink) {
+    downloadLink.addEventListener('click', (e) => {
+        if (downloadLink.hasAttribute('disabled') || downloadLink.getAttribute('aria-disabled') === 'true') {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
+}
+
 // Use Original preview as uploader (click and drag-drop)
 if (origPreview) {
     origPreview.addEventListener('click', () => {
@@ -459,3 +487,4 @@ compressBtn.addEventListener('click', () => {
 
 // Initialize
 onQualityInput();
+setDownloadEnabled(false);
