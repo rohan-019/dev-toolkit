@@ -582,6 +582,9 @@ body {
     padding: 0.6rem 1.2rem;
     border-radius: var(--radius-xl);
     font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    animation: pulse 2s infinite;
     font-weight: 700;
     margin-bottom: 1rem;
     animation: hacktoberfestPulse 3s infinite;
