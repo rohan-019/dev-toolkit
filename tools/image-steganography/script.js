@@ -1,6 +1,7 @@
 (function(){
   const fileInput = document.getElementById('fileInput');
   const dropArea = document.getElementById('dropArea');
+  const stegCard = document.getElementById('stegCard');
   const originalPreview = document.getElementById('originalPreview');
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
@@ -81,6 +82,7 @@
     fileInput.value = '';
     imgLoaded = false;
     lastEncoded = false;
+    if(stegCard) stegCard.classList.add('no-image');
   }
 
   function handleFiles(files){
@@ -103,6 +105,7 @@
         decodeBtn.disabled = false;
         downloadBtn.disabled = false; // allow downloading original drawn as PNG too
         lastEncoded = false;
+        if(stegCard) stegCard.classList.remove('no-image');
         updateCapacityInfo();
       };
       img.onerror = () => alert('Failed to load image.');
