@@ -756,6 +756,14 @@ function initAdvancedSearch() {
       url: "tools/xml-to-json-converter/index.html",
     },
     {
+      name: "File Zipper",
+      description: "Convert your files into a zip and download it.",
+      category: "utility",
+      keywords: ["qr", "code", "generator", "url", "text", "wifi", "scan"],
+      icon: "fas fa-qrcode",
+      url: "tools/file-zipper/index.html",
+    },
+    {
       name: "QR Code Generator",
       description: "Create QR codes for URLs, text, WiFi, and more with customizable styling.",
       category: "utility",
