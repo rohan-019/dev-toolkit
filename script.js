@@ -740,6 +740,14 @@ function initAdvancedSearch() {
       url: "tools/image-to-pdf/index.html",
     },
     {
+      name: "Color Contrast Checker",
+      description: "Check color contrast between two colors",
+      category: "utility",
+      keywords: ["utilities", "converter", "checker"],
+      icon: "fas fa-palette",
+      url: "tools/color-contrast-checker/index.html",
+    },
+    {
       name: "XML to JSON converter",
       description: "Convert your XML data into JSON",
       category: "utility",
