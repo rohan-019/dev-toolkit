@@ -72,7 +72,11 @@
 
     .field{ margin:12px 0 }
     .field label{ display:block; font-size:.9rem; color:var(--muted); margin-bottom:6px }
-    .field input[type="password"], .field input[type="text"]{ width:100%; padding:12px 14px; border-radius:10px; background:#0f141a; color:var(--text); border:1px solid var(--border); outline:none }
+    .field input[type="password"], .field input[type="text"], .field input[type="number"], .field select{ width:100%; padding:12px 14px; border-radius:10px; background:#0f141a; color:var(--text); border:1px solid var(--border); outline:none }
+        .field select{ appearance:none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px); background-size: 5px 5px, 5px 5px; background-repeat: no-repeat }
+        .field input[type="number"]{ -moz-appearance: textfield }
+        .field input[type="number"]::-webkit-outer-spin-button,
+        .field input[type="number"]::-webkit-inner-spin-button{ -webkit-appearance: none; margin: 0 }
     .file-drop{ border:2px dashed #2d3744; border-radius:12px; padding:24px; text-align:center; background:#0f141a }
     .file-drop.drag{ border-color: var(--secondary); background: rgba(255,159,28,.06) }
     /* Styled link inside file drop to match design */
@@ -169,6 +173,30 @@
           </div>
         </section>
       </div>
+
+      <section class="panel" id="advancedPanel" style="margin-top:18px;">
+        <details>
+          <summary style="cursor:pointer; font-weight:600;">Advanced Options (optional)</summary>
+          <div class="field" style="margin-top:12px;">
+            <label for="advIterations">PBKDF2 Iterations</label>
+            <input type="number" id="advIterations" min="10000" step="1000" value="250000" />
+            <div class="small">Higher = slower but stronger. Recommended 200k–600k depending on device.</div>
+          </div>
+          <div class="field">
+            <label for="advKeyLen">AES-GCM Key Length (bits)</label>
+            <select id="advKeyLen">
+              <option value="128">128</option>
+              <option value="192">192</option>
+              <option value="256" selected>256</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="advIvLen">GCM IV Length (bytes)</label>
+            <input type="number" id="advIvLen" min="12" max="32" step="1" value="12" />
+            <div class="small">12 bytes (96 bits) is recommended for AES-GCM.</div>
+          </div>
+        </details>
+      </section>
 
       <div class="footer">All operations happen locally in your browser via Web Crypto API. Nothing is uploaded.</div>
     </div>
