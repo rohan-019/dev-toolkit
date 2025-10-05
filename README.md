@@ -41,25 +41,6 @@
 
 ---
 
-## 🛠️ Available Tools
-
-<div align="center">
-
-| Tool | Description | Status | Category |
-|------|-------------|--------|----------|
-| 📝 **Word Counter** | Advanced text analysis with real-time stats | ✅ Live | Text |
-| 🔧 **JSON Formatter** | Format and validate JSON data | 🚧 Coming Soon | Code |
-| 🎨 **Color Picker** | Advanced color selection tool | 🚧 Coming Soon | Utility |
-| 🔐 **Password Generator** | Secure password generation | 🚧 Coming Soon | Security |
-| 📐 **Base64 Encoder** | Encode/decode Base64 strings | ✅ Live | Converter |
-| 🔍 **RegEx Tester** | Test regular expressions | 🚧 Coming Soon | Code |
-
-</div>
-
-> 💡 **Want to add a tool?** Check our [Tool Ideas](CONTRIBUTING.md#-tool-ideas) section!
-
----
-
 ## 🚀 Live Demo
 
 <div align="center">
