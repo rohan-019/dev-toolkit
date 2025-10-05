@@ -98,7 +98,7 @@
     </div>
 
     <!-- Advanced Animated Background -->
-    <div class="animated-bg">
+    <div class="animated-bg">  
         <div class="floating-shapes">
             <div class="shape shape-1"></div>
             <div class="shape shape-2"></div>
@@ -220,6 +220,10 @@
                         <i class="fas fa-link"></i>
                         <span>URL Encoder</span>
                     </a>
+                    <a href="tools/url-query-editor/index.html" class="sidebar-tool-link" data-category="utility">
+                        <i class="fas fa-edit"></i>
+                        <span>URL Query Editor</span>
+                    </a>
                     <a href="tools/percentage-calculator/index.html" class="sidebar-tool-link" data-category="utility">
                         <i class="fas fa-calculator"></i>
                         <span>Percentage Calculator</span>
@@ -237,6 +241,10 @@
                         <i class="fas fa-file-pdf"></i>
                         <span>Image to PDF</span>
                     </a>
+                    <a href="tools/color-contrast-checker/index.html" class="sidebar-tool-link" data-category="utility">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Color Contrast Checker</span>
+                    </a>
                     <a href="tools/xml-to-json-converter/index.html" class="sidebar-tool-link" data-category="utility">
                         <i class="fas fas fa-exchange"></i>
                         <span>XML to JSON Converter</span>
@@ -246,7 +254,7 @@
                         <span>File Zipper</span>
                     </a>
                     <div class="sidebar-tool-link disabled" data-category="utility">
-                        <i class="fas fa-palette"></i>
+                        <i class="fas fa-layer-group"></i>
                         <span>Color Picker</span>
                         <small>Coming Soon</small>
                     </div>
@@ -427,6 +435,11 @@
                     <i class="fas fa-code"></i>
                     Date Tools
                 </button>
+                <button class="filter-btn" data-filter="timezone-convertors">
+                    <i class="fas fa-code"></i>
+                    Timezone Tools
+                </button>
+
                 <button class="filter-btn" data-filter="utility">
                     <i class="fas fa-cog"></i>
                     Utilities
@@ -454,6 +467,7 @@
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
+
 
                 <!-- Line Sorter & Unique Extractor -->
                 <a href="tools/line-sorter-unique/index.html" class="tool-card" data-category="text">
@@ -578,6 +592,28 @@
                     </div>
                 </a>
 
+                <a href="tools/timezone-converters/index.html" class="tool-card" data-category="timezone-convertors">
+                    <div class="tool-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Timezone Converter</h3>
+                        <p class="tool-description">
+                            Convert dates and times between different timezones with ease.
+                            See UTC offsets, daylight savings adjustments, and compare times instantly.
+                        </p>
+                        <div class="tool-tags">
+                            <span class="tag">Timezone</span>
+                            <span class="tag">Date</span>
+                            <span class="tag">Converter</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+
                 <a href="tools/date-difference/index.html" class="tool-card" data-category="date">
                     <div class="tool-icon">
                         <i class="fas fa-calendar-alt"></i>
@@ -602,7 +638,7 @@
                 <!-- Color Picker -->
                 <div class="tool-card" data-category="utility">
                     <div class="tool-icon">
-                        <i class="fas fa-palette"></i>
+                        <i class="fas fa-layer-group"></i>
                     </div>
                     <div class="tool-content">
                         <h3 class="tool-title">Color Picker</h3>
@@ -619,6 +655,25 @@
                     </div>
                 </div>
 
+                <!-- Random Color Generator -->
+                <a href="tools/random-color-generator/index.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Random Color Generator</h3>
+                        <p class="tool-description">
+                            Generates a random HEX or RGB color on button click. Shows the color code and a preview box.
+                        </p>
+                        <div class="tool-tags">
+                            <span class="tag">Utility</span>
+                            <span class="tag">Color</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
 
                 <!-- Base64 Encoder/Decoder -->
                 <a href="tools/base64-encoder/index.html" class="tool-card" data-category="utility">
@@ -699,6 +754,25 @@
                     </div>
                 </a>
 
+                <!-- URL Query Parameter Editor -->
+                <a href="tools/url-query-editor/index.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">URL Query Parameter Editor</h3>
+                        <p class="tool-description">Parse, modify, and rebuild URLs with their query parameters. Add, edit, or remove parameters and generate new URLs with ease.</p>
+                        <div class="tool-tags">
+                            <span class="tag">URL</span>
+                            <span class="tag">Parameters</span>
+                            <span class="tag">Query</span>
+                            <span class="tag">Edit</span>
+                        </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
 
                 <!-- Password Generator -->
                 <a href="tools/password-generator/index.html" class="tool-card" data-category="utility">
@@ -912,19 +986,21 @@
                     </div>
                 </a>
 
-                <!-- Image to PDF -->
-                <a href="tools/image-to-pdf/index.html" class="tool-card" data-category="utility">
+                <!-- Number Base Converter -->
+                <a href="tools/number-base-converter/index.html" class="tool-card" data-category="utility">
                     <div class="tool-icon">
-                        <i class="fas fa-file-pdf"></i>
+                        <i class="fas fa-exchange-alt"></i>
                     </div>
                     <div class="tool-content">
-                        <h3 class="tool-title">Image to PDF</h3>
+                        <h3 class="tool-title">Number Base Converter</h3>
                         <p class="tool-description">
-                            A tool to convert your images into pdf. Supoorts multi-image pdf conversion etc.
+                            A simple tool to convert numbers between Decimal, Binary, Octal, and Hexadecimal.
                         </p>
                         <div class="tool-tags">
-                            <span class="tag">Converter</span>
-                            <span class="tag">Utility</span>
+                            <span class="tag">Binary</span>
+                            <span class="tag">Decimal</span>
+                            <span class="tag">Octal</span>
+                            <span class="tag">Hexadecimal</span>
                         </div>
                     </div>
                     <div class="tool-arrow">
@@ -1008,6 +1084,27 @@
                             <span class="tag">Pdf</span>
                             <span class="tag">Zip</span>
                             <span class="tag">Utility</span>
+                         </div>
+                    </div>
+                    <div class="tool-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                  </a>
+
+                <!-- Color Contrast Checker -->
+                <a href="tools/color-contrast-checker/index.html" class="tool-card" data-category="utility">
+                    <div class="tool-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="tool-title">Color Contrast Checker</h3>
+                        <p class="tool-description">
+                            A tool to check contrast between two colors and certify if they meet the WCAG AA and AAA standards
+                        </p>
+                        <div class="tool-tags flex ">
+                            <span class="tag">Converter</span>
+                            <span class="tag">Utility</span>
+                            <span class="tag">Checker</span>
                         </div>
                     </div>
                     <div class="tool-arrow">
