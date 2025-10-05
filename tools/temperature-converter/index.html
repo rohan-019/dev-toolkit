@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter - DevToolkit</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tool-specific styles */
+        .tool-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .tool-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .converter-input-section {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .converter-input-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .temp-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .temp-card {
+            background: var(--bg-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .temp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .temp-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .temp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .temp-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.2rem;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .temp-icon.celsius {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+        }
+
+        .temp-icon.fahrenheit {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .temp-icon.kelvin {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .temp-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .temp-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .temp-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.2);
+        }
+
+        /* Hide number input spinners */
+        .temp-input::-webkit-outer-spin-button,
+        .temp-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .temp-input[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        .temp-description {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .formulas-section {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .formulas-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .formulas-section h3 i {
+            color: var(--primary-color);
+        }
+
+        .formulas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .formula-card {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .formula-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-code {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            background: var(--bg-secondary);
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+        }
+
+        .back-button:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-highlight {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(0, 129, 180, 0.1));
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .feature-highlight h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-highlight p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .tool-container {
+                padding: 1rem;
+            }
+
+            .temp-cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .formulas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .formulas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <a href="../../index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Back to Tools
+    </a>
+
+    <div class="tool-container">
+        <!-- Header -->
+        <div class="tool-header">
+            <h1 class="tool-title">Temperature Converter</h1>
+            <p class="tool-subtitle">
+                Convert temperatures between Celsius, Fahrenheit, and Kelvin with real-time calculations and instant results.
+            </p>
+        </div>
+
+        <!-- Temperature Input Section -->
+        <div class="converter-input-section">
+            <div class="temp-cards-grid">
+                <!-- Celsius -->
+                <div class="temp-card">
+                    <div class="temp-icon celsius">
+                        <i class="fas fa-temperature-low"></i>
+                    </div>
+                    <div class="temp-label">
+                        <span>Celsius</span>
+                        <span class="unit-symbol">°C</span>
+                    </div>
+                    <input type="number" id="celsius" placeholder="0" step="any" class="temp-input">
+                    <div class="temp-description">Water freezes at 0°C, boils at 100°C</div>
+                </div>
+
+                <!-- Fahrenheit -->
+                <div class="temp-card">
+                    <div class="temp-icon fahrenheit">
+                        <i class="fas fa-temperature-high"></i>
+                    </div>
+                    <div class="temp-label">
+                        <span>Fahrenheit</span>
+                        <span class="unit-symbol">°F</span>
+                    </div>
+                    <input type="number" id="fahrenheit" placeholder="32" step="any" class="temp-input">
+                    <div class="temp-description">Water freezes at 32°F, boils at 212°F</div>
+                </div>
+
+                <!-- Kelvin -->
+                <div class="temp-card">
+                    <div class="temp-icon kelvin">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <div class="temp-label">
+                        <span>Kelvin</span>
+                        <span class="unit-symbol">K</span>
+                    </div>
+                    <input type="number" id="kelvin" placeholder="273.15" step="any" class="temp-input">
+                    <div class="temp-description">Absolute zero at 0K, water freezes at 273.15K</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="action-btn" onclick="clearAll()">
+                <i class="fas fa-trash"></i>
+                Clear All
+            </button>
+            <button class="action-btn" onclick="setCommonTemp('freezing')">
+                <i class="fas fa-snowflake"></i>
+                Water Freezing Point
+            </button>
+            <button class="action-btn" onclick="setCommonTemp('boiling')">
+                <i class="fas fa-fire"></i>
+                Water Boiling Point
+            </button>
+            <button class="action-btn" onclick="setCommonTemp('body')">
+                <i class="fas fa-user"></i>
+                Body Temperature
+            </button>
+        </div>
+
+        <!-- Conversion Formulas -->
+        <div class="formulas-section">
+            <h3>
+                <i class="fas fa-calculator"></i>
+                Conversion Formulas
+            </h3>
+            <div class="formulas-grid">
+                <div class="formula-card">
+                    <div class="formula-title">Celsius to Fahrenheit</div>
+                    <div class="formula-code">°F = (°C × 9/5) + 32</div>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Fahrenheit to Celsius</div>
+                    <div class="formula-code">°C = (°F - 32) × 5/9</div>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Celsius to Kelvin</div>
+                    <div class="formula-code">K = °C + 273.15</div>
+                </div>
+                <div class="formula-card">
+                    <div class="formula-title">Kelvin to Celsius</div>
+                    <div class="formula-code">°C = K - 273.15</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Highlight -->
+        <div class="feature-highlight">
+            <h4>🌡️ Real-time Conversion</h4>
+            <p>Get instant temperature conversions as you type with precise calculations and scientific accuracy.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
