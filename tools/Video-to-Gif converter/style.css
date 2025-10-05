@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  background-color: #0f0f0f;
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  background: #1a1a1a;
+  border: 2px solid #ff6600;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 0 30px #ff660044;
+}
+
+h1 {
+  text-align: center;
+  color: #ff6600;
+  text-shadow: 0 0 15px #ff660099;
+}
+
+.converter-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#videoInput {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ff6600;
+  border-radius: 8px;
+  background: #222;
+  color: #fff;
+}
+
+video {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #ff6600;
+  background: #111;
+}
+
+button {
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #ff6600, #ff3300);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ff6600;
+}
+
+.output-section {
+  text-align: center;
+}
+
+#gifPreview {
+  width: 100%;
+  border: 1px solid #ff6600;
+  border-radius: 12px;
+  margin-top: 10px;
+  display: none;
+}
+
+#downloadBtn {
+  display: none;
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: #ff6600;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+#downloadBtn:hover {
+  background: #ff3300;
+  box-shadow: 0 0 10px #ff6600;
+}
+
+#status {
+  text-align: center;
+  color: #ff8800;
+  font-style: italic;
+}
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}

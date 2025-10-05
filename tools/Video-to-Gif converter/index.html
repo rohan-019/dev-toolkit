@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video to GIF Converter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body >
+  <div class="container">
+    <h1>🎬 Video → GIF Converter</h1>
+
+    <div class="converter-box">
+      <div class="input-section">
+        <label for="videoInput">Upload your video:</label>
+        <input type="file" id="videoInput" accept="video/*" />
+      </div>
+
+      <video id="preview" controls></video>
+
+      <button id="convertBtn">Convert to GIF</button>
+      <p id="status"></p>
+
+      <div class="output-section">
+        <p>GIF Preview:</p>
+        <img id="gifPreview" alt="GIF will appear here" />
+        <a id="downloadBtn" href="#" download="output.gif">⬇️ Download GIF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FFmpeg.js -->
+  <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>
