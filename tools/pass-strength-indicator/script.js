@@ -2,39 +2,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordInput = document.getElementById('password');
     const strengthFill = document.getElementById('strength-fill');
     const strengthText = document.getElementById('strength-text');
+    const suggestionsList = document.getElementById('suggestions');
 
-    passwordInput.addEventListener('input', () => {
-      const password = passwordInput.value;
-      const strength = calculateStrength(password);
+    function analyzePassword(password) {
+        const analysis = {
+            strength: 0,
+            suggestions: []
+        };
 
-      strengthFill.style.width = strength.percent + '%';
-      strengthFill.style.backgroundColor = strength.color;
-      strengthText.textContent = `Strength: ${strength.text}`;
-    });
+        // Length check
+        if (password.length < 8) {
+            analysis.suggestions.push('Add more characters (at least 8)');
+        } else {
+            analysis.strength += 25;
+        }
 
-    function calculateStrength(password) {
-      let score = 0;
+        // Uppercase check
+        if (!password.match(/[A-Z]/)) {
+            analysis.suggestions.push('Add uppercase letters');
+        } else {
+            analysis.strength += 25;
+        }
 
-      if (password.length >= 6) score += 1;
-      if (password.length >= 10) score += 1;
-      if (/[A-Z]/.test(password)) score += 1;
-      if (/[0-9]/.test(password)) score += 1;
-      if (/[^A-Za-z0-9]/.test(password)) score += 1;
+        // Numbers check
+        if (!password.match(/[0-9]/)) {
+            analysis.suggestions.push('Add numbers');
+        } else {
+            analysis.strength += 25;
+        }
 
-      switch (score) {
-        case 0:
-        case 1:
-          return { text: 'Very Weak', color: '#ff4b5c', percent: 20 };
-        case 2:
-          return { text: 'Weak', color: '#ff914d', percent: 40 };
-        case 3:
-          return { text: 'Moderate', color: '#f3d547', percent: 60 };
-        case 4:
-          return { text: 'Strong', color: '#3ddc97', percent: 80 };
-        case 5:
-          return { text: 'Very Strong', color: '#2ecc71', percent: 100 };
-        default:
-          return { text: '', color: '#ccc', percent: 0 };
-      }
+        // Special characters check
+        if (!password.match(/[^A-Za-z0-9]/)) {
+            analysis.suggestions.push('Add special characters (!@#$%^&*)');
+        } else {
+            analysis.strength += 25;
+        }
+
+        return analysis;
     }
+
+    function updateUI(analysis) {
+        // Update strength bar
+        strengthFill.style.width = `${analysis.strength}%`;
+        strengthFill.className = '';
+        
+        if (analysis.strength <= 25) {
+            strengthFill.classList.add('weak');
+            strengthText.textContent = 'Strength: Weak';
+        } else if (analysis.strength <= 50) {
+            strengthFill.classList.add('fair');
+            strengthText.textContent = 'Strength: Fair';
+        } else if (analysis.strength <= 75) {
+            strengthFill.classList.add('good');
+            strengthText.textContent = 'Strength: Good';
+        } else {
+            strengthFill.classList.add('strong');
+            strengthText.textContent = 'Strength: Strong';
+        }
+
+        // Update suggestions
+        suggestionsList.innerHTML = analysis.suggestions
+            .map(suggestion => `<li><i class="fas fa-info-circle"></i>${suggestion}</li>`)
+            .join('');
+    }
+
+    // Event listener
+    passwordInput.addEventListener('input', (e) => {
+        const analysis = analyzePassword(e.target.value);
+        updateUI(analysis);
+    });
 });
