@@ -103,6 +103,13 @@ button:hover { opacity: 0.9; }
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
+
+#grid-preview div:hover {
+  background: var(--bg-secondary);
+  transform: scale(1.05);
+  transition: 0.2s ease;
+}
+
 </style>
 </head>
 <body>
@@ -143,6 +150,10 @@ item2,2,1,2,1"></textarea>
 
   <h3>Generated CSS:</h3>
   <div id="result" class="result-box"></div>
+  <h3>Grid Preview:</h3>
+  <div id="preview-container" class="result-box" style="background:#1c2233; padding:1rem;">
+    <div id="grid-preview" style="display:grid; gap:10px; min-height:200px;"></div>
+  </div>
 </div>
 
 <script src="script.js"></script>
