@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cookie Manager - DevToolkit</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #0a0f1e 0%, #1a1f2e 100%);
+        color: var(--text-primary);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+      .tool-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+      .tool-header {
+        text-align: left;
+        margin-bottom: 1rem;
+      }
+      .tool-title {
+        font-size: clamp(1.6rem, 4vw, 2.6rem);
+        font-weight: 700;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.25rem;
+      }
+      .small {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .toolbar {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        margin: 1rem 0;
+      }
+      button {
+        background: var(--primary-color);
+        border: none;
+        padding: 0.6rem 0.9rem;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      button.ghost {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        color: var(--text-primary);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 1rem;
+      }
+      .panel {
+        background: var(--bg-secondary);
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 0.5rem 0.6rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        text-align: left;
+        font-family: monospace;
+      }
+      tr:hover {
+        background: rgba(255, 255, 255, 0.02);
+        cursor: pointer;
+      }
+      label {
+        display: block;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+      }
+      input[type="text"],
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+      }
+      .muted {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.85rem;
+      }
+      .actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+      }
+      .note {
+        margin-top: 0.75rem;
+        padding: 0.6rem;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.02);
+        font-size: 0.87rem;
+      }
+      .back-button {
+        position: fixed;
+        top: 2rem;
+        left: 2rem;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        text-decoration: none;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+      }
+      .back-button:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+      }
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="../../index.html" class="back-button"
+      ><i class="fas fa-arrow-left"></i> Back to Tools</a
+    >
+
+    <div class="tool-container">
+      <div class="tool-header">
+        <div style="display: flex; align-items: center; gap: 0.75rem">
+          <h1 class="tool-title">Cookie Manager</h1>
+          <div class="small muted">
+            View / add / edit / delete cookies for this domain
+          </div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button id="refresh-btn"><i class="fas fa-sync"></i> Refresh</button>
+        <button id="copy-all-btn" class="ghost">
+          <i class="fas fa-copy"></i> Copy all cookie string
+        </button>
+        <button id="clear-all-btn" class="ghost">
+          <i class="fas fa-trash-alt"></i> Delete all (non-HttpOnly)
+        </button>
+        <div style="flex: 1"></div>
+        <div class="muted">
+          Note: HttpOnly cookies are not accessible to JS and won't appear here.
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="panel">
+          <h3 style="margin-top: 0">Cookies (click to edit)</h3>
+          <div
+            style="max-height: 420px; overflow: auto"
+            id="cookie-table-wrapper"
+          >
+            <table id="cookie-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Value</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-top: 0">Selected / Create Cookie</h3>
+
+          <label>Name</label>
+          <input id="c-name" type="text" placeholder="cookie name" />
+
+          <label>Value</label>
+          <input id="c-value" type="text" placeholder="cookie value" />
+
+          <label>Expires (days from now - leave blank for session)</label>
+          <input id="c-expires" type="number" min="0" placeholder="e.g. 30" />
+
+          <label>Path</label>
+          <input id="c-path" type="text" placeholder="/" value="/" />
+
+          <label>Domain (optional)</label>
+          <input id="c-domain" type="text" placeholder="example.com" />
+
+          <label style="margin-top: 0.5rem">Options</label>
+          <div
+            style="
+              display: flex;
+              gap: 0.75rem;
+              align-items: center;
+              margin-bottom: 0.5rem;
+            "
+          >
+            <label style="display: flex; align-items: center; gap: 0.4rem"
+              ><input id="c-secure" type="checkbox" /> Secure</label
+            >
+            <label style="display: flex; align-items: center; gap: 0.4rem"
+              ><input id="c-samesite" type="checkbox" /> SameSite=Lax
+              (toggle)</label
+            >
+          </div>
+
+          <div class="actions">
+            <button id="save-btn">Save Cookie</button>
+            <button id="delete-btn" class="ghost">Delete Cookie</button>
+            <button id="copy-btn" class="ghost">
+              <i class="fas fa-copy"></i> Copy cookie string
+            </button>
+          </div>
+
+          <div class="note">
+            <strong>Important:</strong> This tool manipulates cookies via
+            <code>document.cookie</code>. It cannot read or delete HttpOnly
+            cookies set by the server. Deleting a cookie requires matching the
+            `path` and `domain` used when it was set.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="cookies.js"></script>
+  </body>
+</html>
