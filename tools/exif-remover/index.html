@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Metadata (EXIF) Remover - DevToolkit</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Back button styles */
+    .back-button {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(20px);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-button:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Main container styles */
+    .tool-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .tool-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      margin-top: 3rem;
+    }
+
+    .tool-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .tool-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Input Section */
+    .input-section {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .input-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gradient-primary);
+    }
+
+    .input-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .input-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* File Upload Area */
+    .upload-area {
+      border: 2px dashed rgba(255, 255, 255, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      background: var(--bg-primary);
+      margin-bottom: 2rem;
+    }
+
+    .upload-area:hover,
+    .upload-area.dragover {
+      border-color: var(--primary-color);
+      background: rgba(255, 107, 53, 0.1);
+    }
+
+    .upload-area.has-image {
+      border-color: var(--success-color);
+      background: rgba(126, 211, 33, 0.1);
+    }
+
+    .upload-icon {
+      font-size: 3rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .upload-area:hover .upload-icon {
+      color: var(--primary-color);
+      transform: scale(1.1);
+    }
+
+    .upload-text {
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .upload-subtext {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .file-input {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    /* Image Preview */
+    .image-preview {
+      display: none;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .image-preview.show {
+      display: block;
+    }
+
+    .preview-image {
+      max-width: 100%;
+      max-height: 400px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 1rem;
+    }
+
+    .image-info {
+      background: var(--bg-primary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .image-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .info-value {
+      color: var(--text-primary);
+      font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+      font-size: 0.9rem;
+    }
+
+    /* EXIF Data Display */
+    .exif-section {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .exif-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gradient-primary);
+    }
+
+    .exif-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .exif-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .exif-count {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .exif-data {
+      display: none;
+    }
+
+    .exif-data.show {
+      display: block;
+    }
+
+    .exif-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .exif-item {
+      background: var(--bg-primary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .exif-item:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    .exif-label {
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .exif-value {
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      word-break: break-word;
+    }
+
+    /* Control Buttons */
+    .control-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 2px solid var(--primary-color);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-success {
+      background: var(--success-color);
+      color: white;
+    }
+
+    .btn-success:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      display: none;
+      margin-bottom: 2rem;
+    }
+
+    .progress-container.show {
+      display: block;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--bg-primary);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Result Section */
+    .result-section {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      display: none;
+    }
+
+    .result-section.show {
+      display: block;
+    }
+
+    .result-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gradient-primary);
+    }
+
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .result-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .result-stats {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .result-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .result-stat.success {
+      color: var(--success-color);
+    }
+
+    .result-stat.warning {
+      color: var(--warning-color);
+    }
+
+    /* Empty State */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .empty-state h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .empty-state p {
+      font-size: 1rem;
+      max-width: 400px;
+      line-height: 1.5;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .tool-container {
+        padding: 1rem;
+      }
+
+      .input-section,
+      .exif-section,
+      .result-section {
+        padding: 1rem;
+      }
+
+      .upload-area {
+        padding: 2rem 1rem;
+      }
+
+      .control-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .image-info-grid,
+      .exif-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .back-button {
+        top: 1rem;
+        left: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tool-title {
+        font-size: 1.8rem;
+      }
+
+      .tool-subtitle {
+        font-size: 1rem;
+      }
+
+      .upload-text {
+        font-size: 1rem;
+      }
+
+      .upload-subtext {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+      <div class="shape shape-5"></div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <a href="../../index.html" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+    Back to Tools
+  </a>
+
+  <div class="tool-container">
+    <!-- Header -->
+    <div class="tool-header">
+      <h1 class="tool-title">Image Metadata (EXIF) Remover</h1>
+      <p class="tool-subtitle">
+        Strip all EXIF metadata from your images to protect privacy. Upload an image and download a clean version without any embedded metadata.
+      </p>
+    </div>
+
+    <!-- Input Section -->
+    <div class="input-section">
+      <div class="input-header">
+        <h2 class="input-title">
+          <i class="fas fa-image"></i>
+          Upload Image
+        </h2>
+      </div>
+
+      <!-- Upload Area -->
+      <div class="upload-area" id="upload-area">
+        <input type="file" id="file-input" class="file-input" accept="image/*">
+        <div class="upload-icon">
+          <i class="fas fa-cloud-upload-alt"></i>
+        </div>
+        <div class="upload-text">Drop your image here or click to browse</div>
+        <div class="upload-subtext">Supports JPEG, PNG, WebP, and other common image formats</div>
+      </div>
+
+      <!-- Image Preview -->
+      <div class="image-preview" id="image-preview">
+        <img id="preview-image" class="preview-image" alt="Preview">
+        <div class="image-info">
+          <div class="image-info-grid" id="image-info-grid">
+            <!-- Image info will be populated here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- EXIF Data Section -->
+      <div class="exif-section" id="exif-section" style="display: none;">
+        <div class="exif-header">
+          <h3 class="exif-title">
+            <i class="fas fa-info-circle"></i>
+            EXIF Metadata Found
+          </h3>
+          <span class="exif-count" id="exif-count">0 items</span>
+        </div>
+        <div class="exif-data" id="exif-data">
+          <div class="exif-grid" id="exif-grid">
+            <!-- EXIF data will be populated here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container" id="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-text" id="progress-text">Processing image...</div>
+      </div>
+
+      <!-- Control Buttons -->
+      <div class="control-buttons">
+        <button id="remove-exif-btn" class="btn btn-primary" disabled>
+          <i class="fas fa-shield-alt"></i>
+          Remove EXIF Data
+        </button>
+        <button id="clear-btn" class="btn btn-secondary">
+          <i class="fas fa-trash"></i>
+          Clear All
+        </button>
+      </div>
+    </div>
+
+    <!-- Result Section -->
+    <div class="result-section" id="result-section">
+      <div class="result-header">
+        <h3 class="result-title">
+          <i class="fas fa-check-circle"></i>
+          EXIF Data Removed Successfully
+        </h3>
+        <div class="result-stats">
+          <div class="result-stat success">
+            <i class="fas fa-shield-alt"></i>
+            <span>Privacy Protected</span>
+          </div>
+          <div class="result-stat warning">
+            <i class="fas fa-download"></i>
+            <span>Ready to Download</span>
+          </div>
+        </div>
+      </div>
+      <div class="image-preview show">
+        <img id="result-image" class="preview-image" alt="Cleaned Image">
+        <div class="control-buttons">
+          <button id="download-btn" class="btn btn-success">
+            <i class="fas fa-download"></i>
+            Download Clean Image
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="empty-state">
+      <i class="fas fa-image"></i>
+      <h3>Ready to Protect Your Privacy</h3>
+      <p>
+        Upload an image to remove all EXIF metadata including GPS location, camera settings, and personal information embedded in your photos.
+      </p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
