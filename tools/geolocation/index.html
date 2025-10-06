@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geolocation & Maps - DevToolkit</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="leaflet/leaflet.css">
+  <style>
+    /* Tool-specific styles go here */
+    .tool-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .tool-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .tool-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .tool-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(20px);
+    }
+
+    .back-button:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Map and controls */
+    .panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+    }
+
+    #map {
+      height: 500px;
+      width: 100%;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+
+    .controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn.watching {
+      background: #d0021b;
+      border-color: #d0021b;
+    }
+
+    .btn.watching:hover:not(:disabled) {
+      background: #a00116;
+    }
+
+    .btn-text {
+      display: inline;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .info-item {
+      background: var(--bg-primary);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .info-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .info-value {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-family: 'Courier New', monospace;
+    }
+
+    .status {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      background: var(--bg-primary);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .status.success {
+      color: #4ade80;
+      border-color: rgba(74, 222, 128, 0.3);
+    }
+
+    .status.error {
+      color: #f87171;
+      border-color: rgba(248, 113, 113, 0.3);
+    }
+
+    .status.loading {
+      color: var(--primary-color);
+      border-color: rgba(255, 107, 53, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      #map {
+        height: 400px;
+      }
+
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        display: flex;
+        width: 100%;
+        max-width: none;
+        justify-content: center;
+      }
+
+      .status {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+      <div class="shape shape-5"></div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <a href="../../index.html" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+    Back to Tools
+  </a>
+
+  <div class="tool-container">
+    <!-- Header -->
+    <div class="tool-header">
+      <h1 class="tool-title">Geolocation & Maps</h1>
+      <p class="tool-subtitle">
+        Find your current location using the browser's Geolocation API and display it on an interactive map.
+      </p>
+    </div>
+
+    <!-- Controls Panel -->
+    <div class="panel">
+      <div class="controls">
+        <button id="getLocationBtn" class="btn">
+          <i class="fas fa-location-crosshairs"></i>
+          Get My Location
+        </button>
+        <button id="watchToggleBtn" class="btn secondary">
+          <i class="fas fa-map-pin"></i>
+          <span class="btn-text">Watch Position</span>
+        </button>
+        <div id="status" class="status">
+          Ready to get location
+        </div>
+      </div>
+    </div>
+
+    <!-- Map Panel -->
+    <div class="panel">
+      <div id="map"></div>
+    </div>
+
+    <!-- Location Info Panel -->
+    <div class="panel">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-compass"></i> Latitude
+          </div>
+          <div id="latitude" class="info-value">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-compass"></i> Longitude
+          </div>
+          <div id="longitude" class="info-value">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-bullseye"></i> Accuracy
+          </div>
+          <div id="accuracy" class="info-value">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-mountain"></i> Altitude
+          </div>
+          <div id="altitude" class="info-value">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="leaflet/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
